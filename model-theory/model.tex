@@ -1,0 +1,121 @@
+%!TEX output_directory = .aux
+%!TEX copy_output_on_build(true)
+
+\documentclass[a4paper,10pt]{article}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{xcolor,fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{stmaryrd}
+\include{stylefile}
+\usepackage{lineno}
+\linenumbers
+\setpagewiselinenumbers
+
+\title{Metric Spaces and Complex Analysis}
+\author{Giannis Tyrovolas}
+\date{\today}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{idea}{Idea}
+
+\let\vec\mathbf
+
+\begin{document}
+
+\subsection*{Types}
+
+\begin{definition}
+    For a theory $T$, and variables $\vec{x}$, a \emph{partial type} $P$ is a set of formulas where $T \cup P$ is consistent.
+\end{definition}
+
+\begin{example}
+    For $T = \text{Th}(\left\langle \mathbb{Z}, +, -, 0, 1\right\rangle )$, $P(x) = \{\exists y(y + y \ldots +y = x)\} \cup \{x \neq 0\}$, is a partial type. This can be proven by compactness.
+\end{example}
+
+\begin{definition}
+    For a theory $T$, a type $P$ is principal if for some $\theta(\vec{x})$, $T\cup \theta(\vec{x}) \models P$ and $T \cup \theta$ is consistent.
+\end{definition} 
+
+\begin{theorem}
+    If $P$ is not principal it is omitted in some model of $T$. If $P$ is principal and $T$ is complete then every model of $T$ realises $P$.
+\end{theorem}
+
+\subsection*{Embeddings}
+
+\begin{theorem}
+    If $A \leqslant B$ then for every \emph{quantifier free} $\varphi(x_1, \ldots x_n)$, 
+    \[\varphi ^ {\underline{B}} \cap A^k = \varphi ^ {\underline{A}}.\]
+    If $A \preceq B$ then this is true for all formulas $\varphi$.
+\end{theorem}
+
+\subsection*{Preservation Theorems}
+
+\begin{theorem}
+    For a theory $T$, $\underline{A} \models T_{\forall}$ if and only if there exists $\underline{B} \models T$ with $\underline{A}  \leqslant \underline{B}$. 
+\end{theorem}
+
+\begin{corollary}
+    The theory of fields is not universal as, $\underline{Z} \leqslant \underline{Q}$ but $\underline{Q}$ is a field and $\underline{Z}$ is not.
+\end{corollary}
+
+\begin{theorem}
+    Sentence $\sigma$ is universal if and only if for all $B \models \sigma$ and $A \leqslant B$, $A \models \sigma$.
+\end{theorem}
+
+\begin{example}
+    For $F$ the theory of fields, $F_\forall$ is the theory of integral domains.
+    That is because every integral domain can be embedded in a field.
+\end{example}
+
+\begin{theorem}
+    For a chain $\underline{A_1} \leqslant \underline{A_2} \leqslant \ldots$, let $\underline{A^*}$ be the limit of the chain. Then every AE sentence $\sigma$ which holds for all $\underline{A_i}$, holds for $\underline{A^*}$.
+\end{theorem}
+
+\subsection*{Quantifier elimination}
+
+\begin{definition}
+    Theory $T$ admits quantifier elimination if for any formula $\theta(\vec{x})$, there exists a quantifier free formula $\tilde{\theta}(\vec{x})$ such that:
+    \[
+        T \models \forall \vec{x} (\theta \leftrightarrow \tilde{\theta})
+    \]
+\end{definition}
+
+\begin{theorem}
+    If $L$ has no constant or function symbols and $T$ admits Q.E. then $T$ is complete.
+\end{theorem}
+
+\begin{example}
+    \begin{itemize}
+        \item Th$(\left\langle \mathbb{Q}, < \right\rangle )$ admits QE and so is complete.
+        \item ACF admits QE. But, the only thing ACF does not decide is the field characteristic. Hence, ACF$_p$ for $p$ prime or zero is complete.
+        \item Th$(\left\langle \mathbb{R}, +, -, \times, 0, 1\right\rangle )$ does not admit Q.E. Atomic sentences with one variable define only, finite and cofinite sets. But $\varphi(x) = \exists y (y^2 = x)$ defines the positive numbers.
+        \item Th$(\left\langle \mathbb{R}, +, -, \times, 0, 1, < \right\rangle )$ admits Q.E. by Tarski. It is complete because the order is complete and so determines equality.
+    \end{itemize}
+\end{example}
+
+\begin{remark}
+    If $T$ admits Q.E. and $\underline{A_1} \models T$, $\underline{A_2} \models T$ then $\underline{A_1} \preceq \underline{A_2}$.
+\end{remark}
+
+\begin{theorem}
+    If it exists, there is only one way to extend a universal theory to a Q.E. theory. Prove by taking $S \models \underline{A_1}$ and $\underline{A_1} \leqslant \underline{B_1} \models T$ and build chains. The limits are equal and $\underline{A_1} \preceq A_2 \preceq C$.
+\end{theorem}
+
+\end{document}
+
