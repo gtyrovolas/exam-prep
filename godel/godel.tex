@@ -1,0 +1,124 @@
+%!TEX output_directory = .aux
+%!TEX copy_output_on_build(true)
+
+\documentclass[a4paper,10pt]{article}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{xcolor,fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{stmaryrd}
+\include{stylefile}
+\usepackage{lineno}
+\usepackage{nath}
+\delimgrowth=1
+\linenumbers
+\setpagewiselinenumbers
+
+\newbox\gnBoxA
+\newdimen\gnCornerHgt
+\setbox\gnBoxA=\hbox{$\ulcorner$}
+\global\gnCornerHgt=\ht\gnBoxA
+\newdimen\gnArgHgt
+\def\gnum #1{%
+\setbox\gnBoxA=\hbox{$#1$}%
+\gnArgHgt=\ht\gnBoxA%
+\ifnum     \gnArgHgt<\gnCornerHgt \gnArgHgt=0pt%
+\else \advance \gnArgHgt by -\gnCornerHgt%
+\fi \raise\gnArgHgt\hbox{$\ulcorner$} \box\gnBoxA %
+\raise\gnArgHgt\hbox{$\urcorner$}}
+
+\mathindent = -1pt
+\title{Gödel's Incompleteness Theorems}
+\author{Giannis Tyrovolas}
+\date{\today}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{idea}{Idea}
+
+\let\vec\mathbf
+\let\phi\varphi
+\newcommand{\proves}{\vdash}
+\newcommand{\zero}{\overline{0}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\PA}{\mathrm{PA}}
+\newcommand{\ProvS}[2][S]{{\mathrm{Pr}_{#1}{(\overline{\gnum{#2}})}}}
+\let\Pr\ProvS
+
+\begin{document}
+
+We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, ),\, -,\, \rightarrow, \,\forall, \,= ,\, \leqslant, \,\#\}$
+
+\begin{definition}
+    A subset $A \subseteq \mathbb{N}^k$ is \emph{definable} if there is a formula $\varphi(v_1, \ldots, v_k)$ such that 
+    \[(n_1, \ldots, n_k) \in A \iff \varphi(\overline{n_1}, \ldots, \overline{n_k})\]
+\end{definition}
+
+\begin{definition}
+    A subset $A \subseteq \mathbb{N}^k$ is \emph{provably definable} if there is $\varphi(\vec{x})$ such that $S \vdash \varphi(\vec{n}) \iff \vec{n} \in A$ and $S \vdash \neg\varphi(\vec{n}) \iff \vec{n} \notin A$ 
+\end{definition}
+
+\begin{definition}
+    A function $f \colon \mathbb{N}^k \longrightarrow \mathbb{N}$ is \emph{definable} if $A = \{\vec{x}, f(\vec{x}) \mid \vec{x} \in \mathbb{N}^k\}$ is definable.\\
+    It is \emph{weakly provably definable} from $S$ if $A$ is provably definable from $S$.\\
+    It is \emph{provably definable} if for all $\vec{n} \in \mathbb{N}^k$, $S \vdash \forall v \left(\varphi(\overline{\vec{n}}, v) \leftrightarrow  f(\overline{\vec{n}}) = v\right)$
+\end{definition}
+
+\begin{definition}
+    \begin{enumerate}
+        \item $^{+} \colon \mathbb{N} \longrightarrow \mathbb{N} \setminus \{0\}$ is injective.
+        \item Adding and multiplying by 0 on the right: $\forall v \left(v + \zero =\zero \right)$ and $\forall v \left(v \times \zero = \zero\right)$
+        \item Addition, multiplication: $ \forall v_1 \forall v_2 (v_1 + v_2^+ = (v_1 + v_2)^+)$ and $\forall v_1 \forall v_2 (v_1 \times v_2^+ = v_1 \times v_2 + v_2)$.
+        \item Relation $\leqslant$ is a total order, $\zero$ is the least element, $n^+$ is the successor of $n$.
+        \item For any formula $\varphi(x)$ in one variable:
+        \[
+            (\varphi(\zero) \land \forall v_0(\varphi(v_0) \rightarrow \phi(v_0^+))) \rightarrow \forall v_0 (\phi(v_0))
+        \]
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    For $\phi = \sigma_0 \ldots \sigma_n$ a formula of $L$, $  \gnum \phi = \displayed {\sum_{i=0}^n} \gnum {\sigma_i} 13^i$
+\end{definition}
+
+\begin{definition}
+    $\Sigma_0 = \Pi_0 = \Delta_0$ formulas without unbounded quantifiers.
+    $\Sigma_{n+1}$: formulas of the form $\exists x \phi (x)$, with $\phi \in \Pi_n$.
+    Similarly, $\Pi_{n+1}$ is the formulas of the form $\forall x \phi(x)$ with $\phi \in \Sigma_n$. \\
+    A formula $\psi$ is provably $\Sigma_n$ from $S$ if there is a $\phi \in \Sigma_n$, such that $S \vdash \psi \leftrightarrow \phi$.
+\end{definition}
+
+\begin{lemma}[Diagonal Lemma]
+    For any formula $F(v_1)$ there is a formula $C$ such that:
+    \[ \centering
+        \PA \proves F(\gnum C) \leftrightarrow C
+    \]
+\end{lemma}
+
+\subsection*{Provability Rules}
+\begin{enumerate}
+    \item If $S \proves \phi$ then $\PA \proves \Pr{\phi}$.
+    \item $\PA \proves \Pr{\phi \rightarrow \psi} \rightarrow (\Pr{\phi} \rightarrow \Pr{\psi})$.
+    \item $\PA \proves \Pr{\phi} \rightarrow \Pr{\Pr{\phi}}$
+\end{enumerate}
+
+\begin{definition}
+    A set $S$ of assumptions is \emph{$n$-inconsistent} if for some $\Sigma_n$ formula $\exists x \psi(x)$, $S \proves \exists x \psi(x)$ but for all $m \in \nat$, $S \proves \neg \psi(\overline{m})$. It is $n$-\emph{consistent} if it is not $n$-inconsistent.
+\end{definition}
+
+\end{document}
+
