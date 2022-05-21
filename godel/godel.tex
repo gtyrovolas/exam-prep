@@ -11,12 +11,16 @@
 \usepackage{mathtools}
 \usepackage{amsthm}
 \usepackage{tikz}
+\usepackage{courier}
 \usepackage{stmaryrd}
 \include{stylefile}
 \usepackage{lineno}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{nath}
 \delimgrowth=1
 \linenumbers
+\mathindent = -1pt
 \setpagewiselinenumbers
 
 \newbox\gnBoxA
@@ -32,7 +36,17 @@
 \fi \raise\gnArgHgt\hbox{$\ulcorner$} \box\gnBoxA %
 \raise\gnArgHgt\hbox{$\urcorner$}}
 
-\mathindent = -1pt
+\makeatletter
+\providecommand*{\Dashv}{%
+  \mathrel{%
+    \mathpalette\@Dashv\vDash
+  }%
+}
+\newcommand*{\@Dashv}[2]{%
+  \reflectbox{$\m@th#1#2$}%
+}
+\makeatother
+
 \title{Gödel's Incompleteness Theorems}
 \author{Giannis Tyrovolas}
 \date{\today}
@@ -95,6 +109,20 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
     For $\phi = \sigma_0 \ldots \sigma_n$ a formula of $L$, $  \gnum \phi = \displayed {\sum_{i=0}^n} \gnum {\sigma_i} 13^i$
 \end{definition}
 
+\subsection*{Building $\Pr{\phi}$}
+
+\begin{enumerate}
+    \item Syntax: $\lfloor\root{13}{n} \rfloor$, \begin{tight} ${k {+}{+} l}$ \end{tight}, $k$ is prefix/suffix/substring of $n$ and \emph{formula sequence} last of which is $\sigma$.
+    \item Define \texttt{isNumeral} and \texttt{isVariable} by $\exists$. Define \texttt{isTerm} by valid sequence of term construction.
+    \item Identify formulas: \texttt{isAtomic}, and \texttt{isAxiomFirstOrder}.
+    \item So for $S$ a definable set of formulas in $\Delta_i$, $\mathrm{proof}_S(\overline{n}, \overline{m})$, is $\Delta_i$. $\Pr{\phi} = (\exists x) \mathrm{proof}_S(\overline{\gnum{\phi}}, x)$.
+    \item Define $\PA$ in $\Delta_1$, we need the exists for the induction scheme. 
+\end{enumerate}
+
+\begin{definition}[Quasi-substitution]
+    For $\phi(v_i)$ and term $t$ let $\phi[t] = \forall v_i (v_i = t \rightarrow \phi)$. We have $\PA \proves \phi(t) \leftrightarrow \phi[t]$.
+\end{definition}
+
 \begin{definition}
     $\Sigma_0 = \Pi_0 = \Delta_0$ formulas without unbounded quantifiers.
     $\Sigma_{n+1}$: formulas of the form $\exists x \phi (x)$, with $\phi \in \Pi_n$.
@@ -105,11 +133,34 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
 \begin{lemma}[Diagonal Lemma]
     For any formula $F(v_1)$ there is a formula $C$ such that:
     \[ \centering
-        \PA \proves F(\gnum C) \leftrightarrow C
+        \PA \proves F(\overline{\gnum C}) \leftrightarrow C
     \]
 \end{lemma}
+Let $E_n$ the expression with Gödel number $n$. \\
+    Let $d(n)$ be $E_n[\overline{n}]$ and $D(m, n)$ be the formula $n = \gnum{d(m)}$. \\
+    Consider, $F(\overline{\gnum{y}})$, then $F(\overline{\gnum{d(y)}}) \vdash \dashv \psi(y) = \forall z(D(y,z) \rightarrow F(z))$. Let $k = \gnum{\psi}$, $C = \psi[\overline{k}]$.
+    Then, $C \vdash\dashv \psi(\overline{k}) \vdash \dashv F(\overline{\gnum{d(k)}})$. But $k = \gnum{\psi}$, so $C = E_k [\overline{k}]$ which is defined to be $d(k)$. So, $C \vdash \dashv F(\overline{\gnum{C}})$.
+    
+    So, \emph{truth is undefinable}, let $\nat \models \mathrm{True}(\overline{\gnum{\phi}})$ if and only if $\nat \models \phi$. 
+    Then, $F(v_1) = \neg \mathrm{True}(v_1)$ so there is $C$ such 
+    that $C \models \Dashv \neg \mathrm{True}(\overline{\gnum{C}})\models \Dashv \neg C$.
+
+\subsection*{Recursive Functions}
+
+\begin{definition}
+    Primitive recursive functions contain $\underline{\text{zero}}$ 
+    and $\underline{\text{succ}}$ and are closed under, projection, composition and primitive recursion.
+    Recursive functions are closed under minimilisation as well.
+\end{definition}
+
+\begin{proposition}
+    Equivalences: $A$ is a decidable set $\iff$ $A$ is $\Delta_1$-definable.\\
+    $A$ is a recursively enumerable set $\iff$ $A$ is $\Sigma_1$-definable.
+\end{proposition}
+
 
 \subsection*{Provability Rules}
+For $S$ a \emph{provably definable} set of assumptions.
 \begin{enumerate}
     \item If $S \proves \phi$ then $\PA \proves \Pr{\phi}$.
     \item $\PA \proves \Pr{\phi \rightarrow \psi} \rightarrow (\Pr{\phi} \rightarrow \Pr{\psi})$.
