@@ -164,12 +164,41 @@ For $S$ a \emph{provably definable} set of assumptions.
 \begin{enumerate}
     \item If $S \proves \phi$ then $\PA \proves \Pr{\phi}$.
     \item $\PA \proves \Pr{\phi \rightarrow \psi} \rightarrow (\Pr{\phi} \rightarrow \Pr{\psi})$.
-    \item $\PA \proves \Pr{\phi} \rightarrow \Pr{\Pr{\phi}}$
+    \item If $\PA \subseteq S$ then $\PA \proves \Pr{\phi} \rightarrow \Pr{\Pr{\phi}}$
 \end{enumerate}
 
+Additionally, $S \proves \phi$ if and only if $\nat \models \Pr{\phi}$.
+
+Let $\PA \subseteq S$ a provably definable set of sentences.
+Then, there is a formula $G$, $\nat \models G$ but $S \nvdash G$.
 \begin{definition}
     A set $S$ of assumptions is \emph{$n$-inconsistent} if for some $\Sigma_n$ formula $\exists x \psi(x)$, $S \proves \exists x \psi(x)$ but for all $m \in \nat$, $S \proves \neg \psi(\overline{m})$. It is $n$-\emph{consistent} if it is not $n$-inconsistent.
 \end{definition}
+
+\begin{definition}
+    Formulas $S$ are \emph{$\Sigma_n$-complete} if every $\Sigma_n$ sentence true in $\nat$ is provable from $S$.
+\end{definition}
+
+\begin{definition}[Weaker arithmetics]
+    $\mathcal{Q}$ is $\PA$ without the induction schema, so it is finitely axiomatisable.
+    $\mathcal{R}$ is the collection of all valid sentences of the form $\overline{m} + \overline{n} = \overline{k}$, $\overline{m} \times \overline{n} = \overline{k}$, $\overline{m} \neq \overline{n}$, $\forall v_1(v_1 \leq \overline{n} \rightarrow (v_1 = \overline{0} \lor \ldots \lor \overline{n}))$ and $\forall v_1 (v_1 \leq \overline{n} \lor \overline{n} \leq v_1)$.
+\end{definition}
+
+\begin{proposition}
+    For every $r \in \mathcal{R}$, $\mathcal{Q} \proves r$.
+\end{proposition}
+
+\begin{proposition}
+    $\mathcal{R}$ is $\Sigma_0$-complete. Hence, so is $\mathcal{Q}$ and $\PA$.
+\end{proposition}
+
+\begin{proposition}
+    If $S$ is $\Sigma_0$-complete then it is $\Sigma_1$-complete. Hence, $\mathcal{R}$, $\mathcal{Q}$ and $\PA$ are $\Sigma_1$-complete.
+\end{proposition}
+
+\begin{theorem}
+    There exists a $\Pi_1$ sentence $G$ such that if $\PA$ is consistent then $\PA \nvdash G$, if $\PA$ is 1-consistent then $\PA \nvdash \neg G$.
+\end{theorem}
 
 \end{document}
 
