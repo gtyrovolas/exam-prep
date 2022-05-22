@@ -143,7 +143,7 @@ Let $E_n$ the expression with Gödel number $n$. \\
     
     So, \emph{truth is undefinable}, let $\nat \models \mathrm{True}(\overline{\gnum{\phi}})$ if and only if $\nat \models \phi$. 
     Then, $F(v_1) = \neg \mathrm{True}(v_1)$ so there is $C$ such 
-    that $C \models \Dashv \neg \mathrm{True}(\overline{\gnum{C}})\models \Dashv \neg C$.
+    that $C \vDash \Dashv \neg \mathrm{True}(\overline{\gnum{C}})\vDash \Dashv \neg C$.
 
 \subsection*{Recursive Functions}
 
@@ -196,8 +196,24 @@ Then, there is a formula $G$, $\nat \models G$ but $S \nvdash G$.
     If $S$ is $\Sigma_0$-complete then it is $\Sigma_1$-complete. Hence, $\mathcal{R}$, $\mathcal{Q}$ and $\PA$ are $\Sigma_1$-complete.
 \end{proposition}
 
-\begin{theorem}
-    There exists a $\Pi_1$ sentence $G$ such that if $\PA$ is consistent then $\PA \nvdash G$, if $\PA$ is 1-consistent then $\PA \nvdash \neg G$.
+\begin{theorem}[1\textsuperscript{st} Incompleteness]
+    There exists a $\Pi_1$ sentence $G$ such that if $\PA$ is consistent then $\PA \nvdash G$, if $\PA$ is 1-consistent then $\PA \nvdash \neg G$. 
+\end{theorem}
+
+\begin{theorem}[Rosser's]
+    Let $\PA \subseteq S$ any provably definable consistent set of sentences.
+    Then there is a sentence $G$ such that $S \nvdash G$ and $S \nvdash \neg G$.
+\end{theorem}
+
+\begin{theorem}[2\textsuperscript{nd} Incompleteness]
+    Let $ \PA \subseteq S$ a provably definable set of sentences.\\ If $ S \proves G \leftrightarrow \neg \Pr{G}$, then for any $\phi$, $S \proves \neg \Pr{\phi} \rightarrow \neg \Pr{G}$.
+\end{theorem}
+
+So, $S \proves \neg \Pr{\phi}$ implies $ S \proves G$. But, if $S$ is consistent $S \nvdash G$. \\
+In particular, $S \nvdash \neg \Pr{\overline{0} = \overline{1}}$ which is $\mathrm{Con}_S$.
+
+\begin{theorem}[Lob's Theorem]
+    Let $\PA \subseteq S$ provably definable. Then, from $S \proves \Pr{\phi} \rightarrow \phi$ we can deduce $S \proves \phi$.
 \end{theorem}
 
 \end{document}
