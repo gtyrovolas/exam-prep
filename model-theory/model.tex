@@ -35,6 +35,7 @@
 \newtheorem*{idea}{Idea}
 
 \let\vec\mathbf
+\let\phi\varphi
 
 \begin{document}
 
@@ -110,12 +111,63 @@
 \end{example}
 
 \begin{remark}
-    If $T$ admits Q.E. and $\underline{A_1} \models T$, $\underline{A_2} \models T$ then $\underline{A_1} \preceq \underline{A_2}$.
+    If $T$ admits Q.E. and $\underline{A_1},\underline{A_2} \models T$ and $ \underline{A_1} \leqslant \underline{A_2}$ then $\underline{A_1} \preceq \underline{A_2}$.
 \end{remark}
 
 \begin{theorem}
     If it exists, there is only one way to extend a universal theory to a Q.E. theory. Prove by taking $S \models \underline{A_1}$ and $\underline{A_1} \leqslant \underline{B_1} \models T$ and build chains. The limits are equal and $\underline{A_1} \preceq A_2 \preceq C$.
 \end{theorem}
+
+\begin{theorem}[Equivalence]
+    \begin{enumerate}
+        \item $T$ has Q.E.
+        \item Any partial isomorphism between models of $T$ is elementary. It is enough to consider isomorphisms on finitely generated subsets.
+        \item For any $\mathcal{M} \models T$ and any $\vec{a} \in \mathcal{M}^n$, $T \cup \mathrm{diag}(\vec{a})$ is complete.
+    \end{enumerate}
+\end{theorem}
+
+\subsection*{Categoricity}
+
+\begin{definition}
+    A theory $T$ for a cardinal $\kappa$ is $\kappa$-categorical if there exist models $\underline{A}, \underline{B} \models T$ and for $\abs{A} = \abs{B} = \kappa$, $A \cong B$.
+\end{definition}
+
+\begin{proposition}
+    If $T$ has no finite models, and for $\kappa \geqslant \abs{L} + \aleph_0$ $T$ is $\kappa$-categorical, then $T$ is complete.
+\end{proposition}
+
+
+\begin{example}
+    \begin{enumerate}
+        \item Theory of equality $T_=$ is categorical for every cardinal. So $T_{\infty}$ is complete.
+        \item $\mathrm{Vect}_K$ is categorical for every $\kappa \geqslant \abs{K}$, so $\mathrm{Vect}_K \cup T_\infty$ is complete.
+        \item $\mathrm{DLO}$ is $\aleph_0$-categorical and has no finite models. Proof by back and forth lemma.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Atomic Model]
+    $\underline{A}$ is an \emph{atomic} model of a \emph{complete} theory $T$ if for any $\vec{a} \in A^n$ there is $\phi(\vec{x})$ such that $\underline{A} \models \phi(\vec{a})$ and for any $\psi(\vec{x})$:
+    \[
+        T \vDash \forall x (\phi \rightarrow \psi) \text{ or } T \vDash \forall x (\phi \rightarrow \neg \psi)
+    \]
+\end{definition}
+
+\begin{definition}
+    A model $\underline{A} \models T$ is \emph{homogeneous} if for any $\vec{a}, \vec{b} \in A^n$ that satisfy the same formulas, there is an automorphism $\alpha \colon A \longrightarrow A$ such that $\alpha(a_i) = b_i$.
+\end{definition}
+
+\begin{definition}
+    A model $A \models T$ is \emph{prime} if for any model $B \models T$, $A$ embeds elementarily to $B$.
+\end{definition}
+
+\begin{proposition} 
+    \emph{Countable} atomic models are isomorphic. In fact, every finite partial isomorphism can be extended to an isomorphism. They are also prime and homogeneous.
+\end{proposition}
+
+\begin{definition}[Type]
+    
+    
+\end{definition}
 
 \end{document}
 
