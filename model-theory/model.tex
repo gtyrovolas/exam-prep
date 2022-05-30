@@ -165,8 +165,40 @@
 \end{proposition}
 
 \begin{definition}[Type]
-    
-    
+    The \emph{$n$-type} of an $n$-tuple $\vec{a} \in A^n$ is the set of formulas satisfied by $\vec{a}$, denoted by $\mathrm{tp}_A(\vec{a})$. In particular, it is a partial type for the $\mathrm{Th}(\underline{A})$. It is complete as $\phi(\vec{x}) \in \mathrm{tp}_A(\vec{a})$ or $\neg \phi(\vec{x})\in \mathrm{tp}_A(\vec{a})$.    
+\end{definition}
+
+\begin{proposition}
+    For a complete theory $T$ the atomic models realise the fewest types.
+\end{proposition}
+
+\begin{proposition}
+    For a countable language $L$, Prime $\iff$ Countable and Atomic.
+\end{proposition}
+
+\begin{corollary}
+    The prime models of $T$ are isomorphic, by uniqueness of countable \& atomic.
+\end{corollary}
+
+\begin{proposition}
+    If for each $n$ the set of $n$-types is countable, then $T$ has a prime model.
+\end{proposition}
+
+\begin{definition}
+    A countable model $\mathcal{M} \models T$ is \emph{universal}, if every countable model embeds elementarily into $\mathcal{M}$.
+\end{definition}
+
+\begin{theorem}[Ryll-Nardzewski]
+    Let $T$ complete and $L$-countable. Then, $T$ is $\aleph_0$-categorical $\iff$ every countable model is prime $\iff$ every countable model is atomic $\iff$ every type is principal $\iff$ there are only finitely many $n$-types $\iff$ $n$-formulas $\phi(\vec{x})$ up to $T$ equivalence is finite $\iff$ \\every countable model is universal $\iff$ a countable model is prime and universal $\iff$ \\ every countable model is universal and homogeneous.
+\end{theorem}
+
+\begin{definition}
+    A \emph{saturated} model is a model that realises all $n$-types and is homogeneous. Equivalently: \\
+    If $\mathcal{M}$ is saturated, for all $B \subseteq \mathcal{M}$ and $\abs{B} < \abs{\mathcal{M}}$, $\mathcal{M}_B$ realises all 1-types of $\mathrm{Th}(\mathcal{M}_B)$.
+\end{definition}
+
+\begin{definition}
+    A group $G$ applied to a $G$-set is oligomorphic if there are finitely many orbits of $G$.
 \end{definition}
 
 \end{document}
