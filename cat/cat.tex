@@ -52,6 +52,7 @@
 \newcommand{\C}{\mathcal{C}}
 \newcommand{\D}{\mathcal{D}}
 \newcommand{\id}{\mathrm{id}}
+\newcommand{\Set}{\mathrm{Set}}
 
 \begin{document}
 
@@ -99,7 +100,81 @@ It is a natural isomorphism if all morphisms $\eta_x$ are isomorphisms.
     The following are equivalent: $\C$ and $\D$ are equivalent, $\C$ and $\D$ are adjoint equivalent and there is $F \colon \C \rightarrow \D$ that is fully faithful and essentially surjective. 
 \end{proposition}
 
+\begin{definition}
+    For a locally small category $\C$, the Yoneda Embedding is given by a functor $Y \colon \C \longrightarrow \mathrm{Fun}(\C^\mathrm{op}, \Set)$, where $Y(x) = \Hom{-}{x}$ and $Y(x \xrightarrow{f} y)= (g \mapsto f \circ g)$.
+\end{definition}
 
+\begin{definition}
+    A functor is representable if it is in the essential image of the Yoneda functor. 
+\end{definition}
+
+\begin{lemma}
+    The Yoneda lemma states that for any presheaf $F \colon \C^{op} \rightarrow \Set$, the map $\mathrm{Fun}(Y(x), F) \rightarrow F(x)$ given by $\eta \mapsto \eta_x(\id_x)$, is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+    To construct the inverse, let $f \in F(x)$, then define natural transformation $\epsilon \colon Y(x) \Rightarrow F$ given by $\epsilon_y \colon Y(x)(y) \rightarrow F(y)$ and $g \mapsto F(g)(f)$. Show this is natural by $F$ preserving composition. One inverse is easy, for the other take $\eta$ arbitrary, make diagram with $x \xrightarrow{g} y$ and claim $\eta_y(g) = F(g)(\eta_x(\id_x))$.
+\end{proof}
+
+\begin{corollary}
+    The Yoneda functor is full and faithful.
+\end{corollary}
+\begin{proof}
+    For $x_1, x_2$, we have that $\Hom[{}]{Y({x_1})}{Y(x_2)} \longrightarrow Y(x_1)(x_2)$ is an isomorphism by Yoneda. 
+\end{proof}
+
+\begin{proposition}
+    A formal right adjoint to $F \colon \C \rightarrow \D$ is a functor $G^{\mathit{formal}} \colon \mathcal{D} \rightarrow \mathrm{Fun}(\C^{op}, \Set)$ with $y \mapsto (x \mapsto \Hom[D]{F(x)}{y})$. A right adjoint $G$ to $F$ exists if and only if $G^{formal}(y)$ is representable for all $y$.
+\end{proposition}
+
+\begin{definition}
+    Let $D \colon I \rightarrow \C$. A limit of $D$ is an object $\lim_I D \in \C$ along with maps $f_i \colon \lim_I D \rightarrow D(i)$, such that for every $g \colon i \rightarrow j$, $D(g) \circ f_i = f_j$. It is universal as for any other object $W$ with compatible maps $W \rightarrow D(i)$, there is a unique morphism $W \rightarrow \lim_I F$.
+\end{definition}
+
+\begin{proposition}
+    The diagonal functor $\Delta \colon \C \rightarrow \mathrm{Fun}(I, \C)$ is  $\Delta(x)(i) = x$. Then $\Hom[\mathrm{Fun}(I, \C)]{\Delta(W)}{F} \cong \Hom{W}{\lim_I F}$, so $\Delta \vdash \lim_I$.
+\end{proposition}
+
+\begin{proposition}
+    Suppose $\C$ has limits for diagrams of shape $I$ and $J$. Then it has limits of diagrams of shape $I \times J$ and 
+    \[
+        \lim_{I \times J} F \cong \lim_I \lim_J F \cong \lim_J \lim_I F
+    \]
+\end{proposition}
+For the proof use $\Delta$ as an adjoint.
+
+\begin{theorem}
+    $\C$ has limits iff it has products and equalisers. $\C$ has finite limits if it has binary products, final object and equalisers.
+\end{theorem}
+
+\begin{proof}
+    For $F \colon I \rightarrow \C$, for every morphism $f \colon i \rightarrow j$, let $\prod_{k \in I} F(k) \rightarrow F(j)$ the projection map and the composite map $\prod_{k \in I} F(k) \rightarrow F(i) \xrightarrow{F(f)} F(j)$. Then, by the universal property of the product we get unique maps: 
+
+    \[
+        \prod_{k \in I} F(k) \rightrightarrows \prod_{(i \rightarrow j) \in \mathrm{Fun}([1], J)} F(j)
+    \]
+    By the equalisers, we get $E$ the limit of $F$.
+\end{proof}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|}
+    \hline
+    
+    \multicolumn{2}{|c|}{Limits} & \multicolumn{2}{|c|}{Colimits}\\
+    \hline
+    \textbf{Final}& $\Set: \{1\}, \mathrm{Grp}: \{e\}$ & \textbf{Initial} & $\Set: \varnothing, \mathrm{Grp}: \{e\}$\\
+    \hline
+    \textbf{Products} & $\times$ in Grp, Set, Vect & \textbf{Co-products} & Set: $\sqcup$, Grp: free product, Ab: $\times$ \\
+    \hline
+    \textbf{Equal} &Set:$x$ with $f(x) = g(x)$, & \textbf{Coeq} & $\Set$: $Y / f(x) \sim g(x)$, Grp: $Y/S$ $f(x)g(x)^{-1}$ \\
+    \hline
+    \textbf{Pullback} &$\{(x, y) \mid f(x) = g(y)\}$ & \textbf{Pushout}& \\
+    \hline
+\end{tabular}
+\end{center}
+
+\begin{theorem}
+    Let $F \vdash G$ then $F$ preserves colimits and $G$ preserves limits.
+\end{theorem}
 
 
 \end{document}
