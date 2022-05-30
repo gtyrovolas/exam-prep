@@ -1,0 +1,106 @@
+%!TEX output_directory = .aux
+%!TEX copy_output_on_build(true)
+
+\documentclass[a4paper,10pt]{article}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{xcolor,fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usepackage{courier}
+\usepackage{stmaryrd}
+\include{stylefile}
+\usepackage{lineno}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\linenumbers
+\setpagewiselinenumbers
+
+
+
+\makeatother
+
+\title{Category Theory}
+\author{Giannis Tyrovolas}
+\date{\today}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{idea}{Idea}
+
+\let\vec\mathbf
+\let\phi\varphi
+\newcommand{\proves}{\vdash}
+\newcommand{\zero}{\overline{0}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\PA}{\mathrm{PA}}
+\newcommand{\ProvS}[2][S]{{\mathrm{Pr}_{#1}{(\overline{\gnum{#2}})}}}
+\newcommand{\Hom}[3][C]{\mathrm{Hom}_\mathcal{#1}(#2, #3)}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\id}{\mathrm{id}}
+
+\begin{document}
+
+\begin{definition}
+    A \emph{category} $\mathcal{C}$, consists of the following data: 
+    \begin{enumerate}
+        \item A collection of \emph{objects} $\mathrm{ob}\,\mathcal{C}$,
+        \item For every two objects $x, y \in \mathrm{ob} \, C$ a collection of \emph{morphisms} $\Hom{x}{y}$.
+        \item For every $x \in \mathcal{C}$, the identity morphism $\mathrm{id}_x \in \Hom{x}{x}$.
+        \item A composition map $\circ \colon \Hom{y}{z} \times \Hom{x}{y} \longrightarrow \Hom{x}{z}$ 
+    \end{enumerate}
+    Such that, for all $x, y \in \C$ and $f \in \Hom{x}{y}$: 
+    \[
+        f \circ \mathrm{id}_x = f \; \; \mathrm{id}_y \circ f = f
+    \]
+    And for all $x, y, z, v$ with $f \in \Hom{x}{y}, g \in \Hom{y}{z}, h \in Hom{z}{v}$:
+    \[
+        h \circ (g \circ f) = (h \circ g) \circ f
+    \]
+\end{definition}
+
+\begin{definition}
+    A \emph{functor} $F \colon \C \longrightarrow \D$ is a map $\mathrm{ob} \C \rightarrow \mathrm{ob} \D$ and a map of morphisms $\Hom[C]{x}{y} \rightarrow \Hom[D]{F(x)}{F(y)}$. Such that $F(\id_x) = \id_{F(x)}$ and $F(g \circ f) = F(g) \circ F(f)$.
+\end{definition}
+
+\begin{definition}
+    $F \colon \C \rightarrow \D$ is \emph{faithful} if for all $x, y \in \C$, $\Hom{x}{y} \rightarrow \Hom[D]{F(x)}{F(y)}$ is injective.
+    It is \emph{full} if every such map is surjective.
+\end{definition}
+
+\begin{definition}
+    A functor $F \colon \C \rightarrow \D$ is essentially surjective if for all $d \in \D$ there is $c \in \C$ such that $F(x) \cong d$.
+\end{definition}
+
+\begin{definition}
+    For two functors $F, G \colon \C \rightarrow \D$, a \emph{natural transformation} $\eta \colon F \Rightarrow D$ is a collection of morphisms $\eta_x \in \Hom[D]{F(x)}{G(x)}$ such that for every $x \xrightarrow{f} y$, $\eta_y \circ F(f) = G(f) \circ \eta_x$. 
+\end{definition}
+It is a natural isomorphism if all morphisms $\eta_x$ are isomorphisms.
+
+\begin{definition}
+    Equivalence of categories: $F \colon \C \rightarrow \D$ and $G \colon \D \rightarrow \C$ with natural isomorphisms $e \colon \id_{\C} \Rightarrow GF$, $\epsilon \colon FG \Rightarrow \id_{\D}$. An adjoint equivalence is an equivalence where $F \dashv G$.
+\end{definition}
+
+\begin{proposition}
+    The following are equivalent: $\C$ and $\D$ are equivalent, $\C$ and $\D$ are adjoint equivalent and there is $F \colon \C \rightarrow \D$ that is fully faithful and essentially surjective. 
+\end{proposition}
+
+
+
+
+\end{document}
+
