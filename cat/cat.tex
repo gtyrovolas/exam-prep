@@ -84,7 +84,7 @@
 \end{definition}
 
 \begin{definition}
-    For two functors $F, G \colon \C \rightarrow \D$, a \emph{natural transformation} $\eta \colon F \Rightarrow D$ is a collection of morphisms $\eta_x \in \Hom[D]{F(x)}{G(x)}$ such that for every $x \xrightarrow{f} y$, $\eta_y \circ F(f) = G(f) \circ \eta_x$. They're natural isos if $\eta_x$ isos.
+    For two functors $F, G \colon \C \rightarrow \D$, a \emph{natural transformation} $\eta \colon F \Rightarrow G$ is a collection of morphisms $\eta_x \in \Hom[D]{F(x)}{G(x)}$ such that for every $x \xrightarrow{f} y$, $\eta_y \circ F(f) = G(f) \circ \eta_x$. They're natural isos if $\eta_x$ isos.
 \end{definition}
 \begin{definition}
     Equivalence of categories: $F \colon \C \rightarrow \D$ and $G \colon \D \rightarrow \C$ with natural isomorphisms $e \colon \id_{\C} \Rightarrow GF$, $\epsilon \colon FG \Rightarrow \id_{\D}$. An adjoint equivalence is an equivalence where $F \dashv G$.
@@ -112,10 +112,6 @@ The forgetful functor from fields has no left adjoint. Such a left adjoint shoul
     For a locally small category $\C$, the Yoneda Embedding is given by a functor $Y \colon \C \longrightarrow \mathrm{Fun}(\C^\mathrm{op}, \Set)$, where $Y(x) = \Hom{-}{x}$ and $Y(x \xrightarrow{f} y)= (g \mapsto f \circ g)$.
 \end{definition}
 
-\begin{definition}
-    A functor is representable if it is in the essential image of the Yoneda functor. 
-\end{definition}
-
 \begin{lemma}
     The Yoneda lemma states that for any presheaf $F \colon \C^{op} \rightarrow \Set$, the map $\mathrm{Fun}(Y(x), F) \rightarrow F(x)$ given by $\eta \mapsto \eta_x(\id_x)$, is an isomorphism.
 \end{lemma}
@@ -131,8 +127,8 @@ The forgetful functor from fields has no left adjoint. Such a left adjoint shoul
     For $x_1, x_2$, we have that $\Hom[{}]{Y({x_1})}{Y(x_2)} \longrightarrow Y(x_1)(x_2)$ is an isomorphism by Yoneda. 
 \end{proof}
 
-\begin{definition}[Representable]
-    A presheaf is representable if it is in the essential image of the Yoneda functor.
+\begin{definition}
+    A presheaf is \emph{representable} if it is in the essential image of the Yoneda functor.
 \end{definition}
 
 \begin{proposition}
@@ -153,7 +149,7 @@ The forgetful functor from fields has no left adjoint. Such a left adjoint shoul
         \lim_{I \times J} F \cong \lim_I \lim_J F \cong \lim_J \lim_I F
     \]
 \end{proposition}
-For the proof use $\Delta$ as an adjoint.
+For the proof use $\Delta$ as an adjoint, $(x, \lim_I \lim_J F) \cong (\Delta_I(x), \lim_J F) \cong(\Delta_{(I),J} (\Delta_I(x), F) \cong (\Delta_{I \times J}, F)$
 
 \begin{theorem}
     $\C$ has limits iff it has products and equalisers. $\C$ has finite limits if it has binary products, final object and equalisers.
@@ -193,12 +189,12 @@ For the proof use $\Delta$ as an adjoint.
 \end{center}
 
 \begin{theorem}
-    Let $F \dashv G$ then $F$ preserves colimits and $G$ preserves limits.
+    Let $F \dashv G$ then $F$ preserves colimits and $G$ preserves limits. \\$\Hom{x}{G \lim_I J} \cong \Hom{Fx}{\lim_I J} \cong \lim_I(\Hom[D]{F(x)}{J})) \cong $. So $G \lim_I J$ is $\lim_I (G \circ J)$.
 \end{theorem}
 
 \begin{theorem}
     $F \colon \C \rightarrow \D$ for $\C, \D$ locally small, and $\C$ has small colimits.
-    $F \dashv G$ iff $F$ preserves colimits and for all $x$, $(F \Rightarrow x)$ the solution set holds. A category $\C$ satisfied it if:
+    $F \dashv G$ iff $F$ preserves colimits and for all $x$, $(F \Rightarrow x)$ the solution set holds. A category $\C$ satisfies it if:
     there is $I$ small, $\{c_i\}_{i \in I}$ such that for each $x \in \C$ there is $c_i$ with $\Hom{x}{c_i}$ non-empty.
 \end{theorem}
 
@@ -218,7 +214,7 @@ For the proof use $\Delta$ as an adjoint.
 
 \begin{proposition}
     The forgetful functor $F \colon \mathrm{Alg}_T(\C) \rightarrow \C$ has a left adjoint $L$ and $FL = T$.
-    We have $L(x) = (T(x), \mu_x)$. Write down the commutative square for a morphism $T(x) \xrightarrow{f} A$ and then $T(x) \xrightarrow{T(\eta_x)} T^2(x) \xrightarrow{\mu_x} T(x)$ commutes. So $f$ is uniquely determined by $x \xrightarrow{\eta_x} Tx \xrightarrow{f} A$ giving an isomorphism of Homs.
+    We have $L(x) = (T(x), \mu_x)$. Write down the commutative square for a morphism $T(x) \xrightarrow{f} A$ and then $T(x) \xrightarrow{T(\eta_x)} T^2(x) \xrightarrow{\mu_x} T(x)$ is the identity. So $f$ is uniquely determined by $x \xrightarrow{\eta_x} Tx \xrightarrow{f} A$ giving an isomorphism of Homs.
 \end{proposition}
 
 \begin{definition}
