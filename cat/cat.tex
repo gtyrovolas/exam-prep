@@ -56,24 +56,23 @@
 
 \begin{document}
 
-\begin{definition}
-    A \emph{category} $\mathcal{C}$, consists of the following data: 
-    \begin{enumerate}
-        \item A collection of \emph{objects} $\mathrm{ob}\,\mathcal{C}$,
-        \item For every two objects $x, y \in \mathrm{ob} \, C$ a collection of \emph{morphisms} $\Hom{x}{y}$.
-        \item For every $x \in \mathcal{C}$, the identity morphism $\mathrm{id}_x \in \Hom{x}{x}$.
-        \item A composition map $\circ \colon \Hom{y}{z} \times \Hom{x}{y} \longrightarrow \Hom{x}{z}$ 
-    \end{enumerate}
-    Such that, for all $x, y \in \C$ and $f \in \Hom{x}{y}$: 
-    \[
-        f \circ \mathrm{id}_x = f \; \; \mathrm{id}_y \circ f = f
-    \]
-    And for all $x, y, z, v$ with $f \in \Hom{x}{y}, g \in \Hom{y}{z}, h \in Hom{z}{v}$:
-    \[
-        h \circ (g \circ f) = (h \circ g) \circ f
-    \]
-\end{definition}
-
+%\begin{definition}
+%    A \emph{category} $\mathcal{C}$, consists of the following data: 
+%    \begin{enumerate}
+ %       \item A collection of \emph{objects} $\mathrm{ob}\,\mathcal{C}$,
+  %      \item For every two objects $x, y \in \mathrm{ob} \, C$ a collection of \emph{morphisms} $\Hom{x}{y}$.
+   %     \item For every $x \in \mathcal{C}$, the identity morphism $\mathrm{id}_x \in \Hom{x}{x}$.
+   %     \item A composition map $\circ \colon \Hom{y}{z} \times \Hom{x}{y} \longrightarrow \Hom{x}{z}$ 
+   % \end{enumerate}
+   % Such that, for all $x, y \in \C$ and $f \in \Hom{x}{y}$: 
+   % \[
+   %     f \circ \mathrm{id}_x = f \; \; \mathrm{id}_y \circ f = f
+   % \]
+   % And for all $x, y, z, v$ with $f \in \Hom{x}{y}, g \in \Hom{y}{z}, h \in Hom{z}{v}$:
+   % \[
+   %     h \circ (g \circ f) = (h \circ g) \circ f
+   % \]
+%\end{definition}
 \begin{definition}
     A \emph{functor} $F \colon \C \longrightarrow \D$ is a map $\mathrm{ob} \C \rightarrow \mathrm{ob} \D$ and a map of morphisms $\Hom[C]{x}{y} \rightarrow \Hom[D]{F(x)}{F(y)}$. Such that $F(\id_x) = \id_{F(x)}$ and $F(g \circ f) = F(g) \circ F(f)$.
 \end{definition}
@@ -81,17 +80,12 @@
 \begin{definition}
     $F \colon \C \rightarrow \D$ is \emph{faithful} if for all $x, y \in \C$, $\Hom{x}{y} \rightarrow \Hom[D]{F(x)}{F(y)}$ is injective.
     It is \emph{full} if every such map is surjective.
+    It is \emph{essentially surjective} if for all $d \in \D$ there is $c \in \C$ such that $F(x) \cong d$.
 \end{definition}
 
 \begin{definition}
-    A functor $F \colon \C \rightarrow \D$ is essentially surjective if for all $d \in \D$ there is $c \in \C$ such that $F(x) \cong d$.
+    For two functors $F, G \colon \C \rightarrow \D$, a \emph{natural transformation} $\eta \colon F \Rightarrow D$ is a collection of morphisms $\eta_x \in \Hom[D]{F(x)}{G(x)}$ such that for every $x \xrightarrow{f} y$, $\eta_y \circ F(f) = G(f) \circ \eta_x$. They're natural isos if $\eta_x$ isos.
 \end{definition}
-
-\begin{definition}
-    For two functors $F, G \colon \C \rightarrow \D$, a \emph{natural transformation} $\eta \colon F \Rightarrow D$ is a collection of morphisms $\eta_x \in \Hom[D]{F(x)}{G(x)}$ such that for every $x \xrightarrow{f} y$, $\eta_y \circ F(f) = G(f) \circ \eta_x$. 
-\end{definition}
-It is a natural isomorphism if all morphisms $\eta_x$ are isomorphisms.
-
 \begin{definition}
     Equivalence of categories: $F \colon \C \rightarrow \D$ and $G \colon \D \rightarrow \C$ with natural isomorphisms $e \colon \id_{\C} \Rightarrow GF$, $\epsilon \colon FG \Rightarrow \id_{\D}$. An adjoint equivalence is an equivalence where $F \dashv G$.
 \end{definition}
@@ -106,6 +100,14 @@ It is a natural isomorphism if all morphisms $\eta_x$ are isomorphisms.
 
 The forgetful functor $\mathit{Forget} \colon * \rightarrow \Set$ has a left adjoint $\mathit{Free} \dashv \mathit{Forget}$ for $*$ being Grp, Ab, Vect. $\mathit{Forget} \colon \mathrm{Ab} \rightarrow \mathrm{Grp}$ has a left adjoint, the abelinisation of $G$. For topologies $\mathit{Forget} \colon \mathrm{Top} \longrightarrow \Set$, we have $D \dashv \mathit{Forget} \dashv I$, where $D$ is the discrete topology and $I$ the indiscrete topology.
 The forgetful functor from fields has no left adjoint. Such a left adjoint should map $\varnothing$ to an initial object in $\mathrm{Field}$, but fields have no initial object.
+
+\begin{definition}[Comma categories]
+    For $F \colon \C \rightarrow \D$ and $G \colon \D \rightarrow \C$, and $x \in \C$ the category $(x \Rightarrow G)$ has objects $(y, x \xrightarrow{f} G(y))$ and morphisms $(y_1, f_1) \rightarrow (y_2, f_2)$ such that $x \xrightarrow{f_1} G(y_1) \rightarrow G(y_2)$ commutes with $f_2$. Similarly $(F \Rightarrow y)$.
+\end{definition}
+
+\begin{proposition}
+    $F \dashv G$ iff $\Hom[D]{F(x)}{ y} \cong \Hom{x}{G(y)}$ naturally in $x, y$ iff for all $x$, $(F(x), e_x)$ is initialin $(x \Rightarrow G)$.
+\end{proposition}
 \begin{definition}
     For a locally small category $\C$, the Yoneda Embedding is given by a functor $Y \colon \C \longrightarrow \mathrm{Fun}(\C^\mathrm{op}, \Set)$, where $Y(x) = \Hom{-}{x}$ and $Y(x \xrightarrow{f} y)= (g \mapsto f \circ g)$.
 \end{definition}
@@ -142,7 +144,7 @@ The forgetful functor from fields has no left adjoint. Such a left adjoint shoul
 \end{definition}
 
 \begin{proposition}
-    The diagonal functor $\Delta \colon \C \rightarrow \mathrm{Fun}(I, \C)$ is  $\Delta(x)(i) = x$. Then $\Hom[\mathrm{Fun}(I, \C)]{\Delta(W)}{F} \cong \Hom{W}{\lim_I F}$, so $\Delta \dashv \lim_I$.
+    The diagonal functor $\Delta \colon \C \rightarrow \mathrm{Fun}(I, \C)$ is  $\Delta(x)(i) = x$. Then $\Hom[\mathrm{Fun}(I, \C)]{\Delta(W)}{F} \cong \Hom{W}{\lim_I F}$, so $\mathrm{colim}_I \dashv \Delta \dashv \lim_I$.
 \end{proposition}
 
 \begin{proposition}
@@ -165,6 +167,14 @@ For the proof use $\Delta$ as an adjoint.
     \]
     By the equalisers, we get $E$ the limit of $F$.
 \end{proof}
+
+\begin{definition}
+    A morphism $f \colon X \rightarrow Y$ is a \emph{monomorphism} if for every $g, h \colon Y \rightarrow Z$, $f \circ g = f \circ h$ implies $g = h$. For an epimorphism $f$, $g \circ f = h \circ f$ implies $g = h$. 
+\end{definition}
+\begin{definition}
+    Equalisers are regular monomorphisms, coequalisers are regular epimorphisms.
+\end{definition}
+
 \begin{center}
 \begin{tabular}{ |c|c|c|c|}
     \hline
@@ -186,6 +196,12 @@ For the proof use $\Delta$ as an adjoint.
     Let $F \dashv G$ then $F$ preserves colimits and $G$ preserves limits.
 \end{theorem}
 
+\begin{theorem}
+    $F \colon \C \rightarrow \D$ for $\C, \D$ locally small, and $\C$ has small colimits.
+    $F \dashv G$ iff $F$ preserves colimits and for all $x$, $(F \Rightarrow x)$ the solution set holds. A category $\C$ satisfied it if:
+    there is $I$ small, $\{c_i\}_{i \in I}$ such that for each $x \in \C$ there is $c_i$ with $\Hom{x}{c_i}$ non-empty.
+\end{theorem}
+
 
 \begin{definition}[Monads]
     A monad $T \colon \C \rightarrow \C$ is a functor with unit $\eta \colon \id_\C \Rightarrow T$ and multiplication $\mu \colon T^2 \Rightarrow T$, satisfying: $T^3 \xRightarrow{id_T \circ \mu} T^2 \xRightarrow{\mu} T$ is equal to $T^3 \xRightarrow{\mu \circ \id_T} T^2 \xRightarrow{\mu} T$ and $T \xRightarrow{\id_T \circ \eta} T^2 \xRightarrow{\mu} T$ and $T \xRightarrow{\eta \circ \id_T} T^2 \xRightarrow{\mu} T$ are both equal to the identity.
@@ -193,7 +209,7 @@ For the proof use $\Delta$ as an adjoint.
 
 \begin{proposition}
     Let $F \dashv G$ with $F \colon \C \rightarrow \D$, then $GF$ is a monad in $\C$ and $FG$ is a comonad in $\D$.
-    For the proof, let $\eta \colon \id_\C \Rightarrow GF$  and $\mu \colon GFGF \xRightarrow{\id_G \circ \epsilon \circ \id_F} GF$. Write the diagrams for $T^2$ and then append $G$ and $F$.
+    For the proof, let $\eta \colon \id_\C \Rightarrow GF$  and $\mu \colon GFGF \xRightarrow{\id_G \circ \epsilon \circ \id_F} GF$. Diagrams for $T^2$ and then append $G$ and $F$.
 \end{proposition}
 
 \begin{definition}
@@ -211,8 +227,8 @@ For the proof use $\Delta$ as an adjoint.
 
 \begin{definition}
     A functor $G \colon \C \rightarrow \D$ is \emph{conservative} if when $G(f)$ is an isomorphism so is $f$.
+    The forgetful functors from Ab, Grp, Vect are conservative, the one from Top is not.
 \end{definition}
-The forgetful functors from Ab, Grp, Vect are conservative, the one from Top is not.
 
 \begin{definition}
     A fork is a cocone $x \rightrightarrows y  \xrightarrow{e} z $ so that $e \circ g = e \circ f$. It is split if there are $s \colon z \rightarrow y$, $t \colon y \rightarrow x$ such that $es = \id_z$, $ft = \id_y$ and $gt = se$.
