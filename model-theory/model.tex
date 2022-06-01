@@ -36,10 +36,20 @@
 
 \let\vec\mathbf
 \let\phi\varphi
+\let\preceq\preccurlyeq
+\let\leq\leqslant
+\let\geq\geqslant
+\let\implies\Rightarrow
 
 \begin{document}
 
-\subsection*{Types}
+\begin{theorem}[Upwards Lowenheim-Skolem] For an infinite $L$-structure $\underline{A}$ and $\kappa \geq \abs{A} + \abs{L}$ there is an $L$-structure $\underline{B}$ such that $\underline{A} \preceq \underline{B}$.
+\end{theorem}
+
+\begin{theorem}[Downwards Lowenheim-Skolem]
+    For $\underline{B}$ an $L$-structure, $S \subseteq B$, there exists $\underline{A}$ such that $S \subseteq A$, $\abs{A} \leq \max{(\abs{S}, \abs{L})}$ and $\underline{A} \preceq \underline{B}$.
+
+\end{theorem}
 
 \begin{definition}
     For a theory $T$, and variables $\vec{x}$, a \emph{partial type} $P$ is a set of formulas where $T \cup P$ is consistent.
@@ -53,11 +63,13 @@
     For a theory $T$, a type $P$ is principal if for some $\theta(\vec{x})$, $T\cup \theta(\vec{x}) \models P$ and $T \cup \theta$ is consistent.
 \end{definition} 
 
-\begin{theorem}
-    If $P$ is not principal it is omitted in some model of $T$. If $P$ is principal and $T$ is complete then every model of $T$ realises $P$.
+\begin{theorem}[Omitting types]
+    Let $T$ complete and $L$ countable. Let $P$ a countable set of non-principal types.
+    Then, there is a countable model of $T$ omitting every type in $P$.
 \end{theorem}
-
-\subsection*{Embeddings}
+\begin{proof}
+    To construct the model, expand the language with countable constants, enumerate the sentences, formulas and closed tuples. At $T_{3n+1}$ add $\sigma_n$ or $\neg \sigma_n$ depending on consistency, add $\neg \exists y \phi_n(y)$ or $\phi_n(c_k)$ add $\psi(\vec{x}) \in P$ such that $T_{3n+2} \cup \neg \psi(\vec{t}_n)$ is consistent. Such a $\psi$ exists because adding constant doesn't un-principal a type and for $\theta = \sigma_n \land (x = c)$, $T \cup \theta(\vec{x}) \nvDash  \phi(\vec{x})$, so $T \cup \{\sigma, \neg \phi(c)\} $.
+\end{proof}
 
 \begin{theorem}
     If $A \leqslant B$ then for every \emph{quantifier free} $\varphi(x_1, \ldots x_n)$, 
@@ -65,11 +77,32 @@
     If $A \preceq B$ then this is true for all formulas $\varphi$.
 \end{theorem}
 
-\subsection*{Preservation Theorems}
+\begin{proposition}[Tarski-Vaught criterion]
+    If $\underline{A} \leqslant \underline{B}$ and for $\phi(\vec{x}, y )$ and $\vec{a} \in A^n$, $\underline{B} \models \phi(\vec{a}, d)$ for $d \in B$ then $\underline{B} \models \phi(\vec{a}, c)$ for $c \in A$, then $\underline{A} \preceq \underline{B}$.
+\end{proposition}
+
+\begin{definition}
+    For $\underline{A}$ let $L_A = L \cup \{c_a \mid a \in A\}$. $\underline{A_A}$ is an $L_A$-structure. The \emph{diagram} $\mathrm{Diag}(\underline{A})$ is all q.f. $L_A$ sentences true in $A_A$.
+\end{definition}
+
+\begin{theorem}
+    There is a 1-1 correspondence between models of $\mathrm{Diag}(\underline{A}) \cup T$ and pairs $(\underline{B}, \underline{A})$ where $\underline{B} \models T$ and $\underline{A} \leq \underline{B}$.
+\end{theorem}
+
+\begin{proof}
+    Let $\underline{C} \models \mathrm{Diag}(A) \cup T$, $\underline{B} = \underline{C}_{\mid L}$, so $\underline{B} \models T$, build $f \colon A \rightarrow B$, $a \mapsto c_a^{\underline{C}}$. Then $f$ is an embedding as for q.f. $\phi$, $\underline{A} \models \phi(\vec{a})$, $\phi(\vec{c}_a) \in \mathrm{Diag}(\underline{A}) \implies \underline{C} \models  \phi(\vec{c}_a) \implies \underline{C} \models \phi(\vec{c}_a^C) \implies \underline{C} \models \phi(f(\vec{a})) \implies \underline{B} \models \phi(f(\vec{a}))$. If $A \nvDash \phi(\vec{a}) \implies A \models \neg \phi(\vec{a}) \implies B \models \neg \phi(\vec{a}) \implies B \nvDash \phi(\vec{a})$.
+\end{proof}
+
+
 
 \begin{theorem}
     For a theory $T$, $\underline{A} \models T_{\forall}$ if and only if there exists $\underline{B} \models T$ with $\underline{A}  \leqslant \underline{B}$. 
 \end{theorem}
+
+\begin{proof}
+    $(\Rightarrow)$ There is $\underline{A} \leq \underline{B}$ iff $\underline{B} \models \mathrm{Diag}(\underline{A}) \cup T$. iff finitely satisfiable iff $T + \phi$ for $\phi \in \mathrm{Diag}(\underline{A})$ is satisfiable iff $T \nvDash \neg \phi(c_1, c_2, \ldots, c_n)$ iff $T \nvDash \forall \vec{x} \neg \phi(\vec{x}) $. But $A \models \exists \vec{x} \phi(\vec{x})$ so $\forall \vec{x} \neg \phi(\vec{x}) \notin T_\forall$.
+\end{proof}
+
 
 \begin{corollary}
     The theory of fields is not universal as, $\underline{Z} \leqslant \underline{Q}$ but $\underline{Q}$ is a field and $\underline{Z}$ is not.
@@ -87,8 +120,6 @@
 \begin{theorem}
     For a chain $\underline{A_1} \leqslant \underline{A_2} \leqslant \ldots$, let $\underline{A^*}$ be the limit of the chain. Then every AE sentence $\sigma$ which holds for all $\underline{A_i}$, holds for $\underline{A^*}$.
 \end{theorem}
-
-\subsection*{Quantifier elimination}
 
 \begin{definition}
     Theory $T$ admits quantifier elimination if for any formula $\theta(\vec{x})$, there exists a quantifier free formula $\tilde{\theta}(\vec{x})$ such that:
@@ -115,7 +146,7 @@
 \end{remark}
 
 \begin{theorem}
-    If it exists, there is only one way to extend a universal theory to a Q.E. theory. Prove by taking $S \models \underline{A_1}$ and $\underline{A_1} \leqslant \underline{B_1} \models T$ and build chains. The limits are equal and $\underline{A_1} \preceq A_2 \preceq C$.
+    If it exists, there is only one way to extend a universal theory to a Q.E. theory. Prove by taking $\underline{A_1} \models S$ and $\underline{A_1} \leqslant \underline{B_1} \models T$ and build chains. The limits are equal and $\underline{A_1} \preceq A_2 \preceq C$.
 \end{theorem}
 
 \begin{theorem}[Equivalence]
@@ -126,30 +157,30 @@
     \end{enumerate}
 \end{theorem}
 
-\subsection*{Categoricity}
-
 \begin{definition}
-    A theory $T$ for a cardinal $\kappa$ is $\kappa$-categorical if there exist models $\underline{A}, \underline{B} \models T$ and for $\abs{A} = \abs{B} = \kappa$, $A \cong B$.
+    A theory $T$ for a cardinal $\kappa$ is $\kappa$-categorical if there exist models $\underline{A}, \underline{B} \models T$ with $\abs{A} = \abs{B} = \kappa$ and this implies $A \cong B$.
 \end{definition}
 
-\begin{proposition}
-    If $T$ has no finite models, and for $\kappa \geqslant \abs{L} + \aleph_0$ $T$ is $\kappa$-categorical, then $T$ is complete.
+\begin{proposition}[Los-Vaught Test]
+    If $T$ has no finite models, and for $\kappa \geqslant \abs{L} + \aleph_0$, $T$ is $\kappa$-categorical, then $T$ is complete.
 \end{proposition}
+
+\begin{proof}
+    Take $\mathcal{M} \models T$, $\abs{\mathcal{M}} = \kappa$. Then, for any sentence $\sigma$, $\mathcal{M} \models \sigma$ or $\mathcal{M} \models \neg \sigma$, wlog let it be $\sigma$. Then, $T \cup \{\neg \sigma\}$ has no model of cardinality $\kappa$, by the Lowenheim-Skolems $T \cup \{\neg \sigma\}$ has no infinite models.
+\end{proof}
 
 
 \begin{example}
     \begin{enumerate}
         \item Theory of equality $T_=$ is categorical for every cardinal. So $T_{\infty}$ is complete.
-        \item $\mathrm{Vect}_K$ is categorical for every $\kappa \geqslant \abs{K}$, so $\mathrm{Vect}_K \cup T_\infty$ is complete.
-        \item $\mathrm{DLO}$ is $\aleph_0$-categorical and has no finite models. Proof by back and forth lemma.
+        \item $\mathrm{Vect}_K$ is categorical for every $\kappa > \abs{K}$, so $\mathrm{Vect}_K \cup T_\infty$ is complete. But, $\mathrm{Vect}_\mathbb{Q}$ is not $\aleph_0$-categorical.
+        \item $\mathrm{DLO}$ is $\aleph_0$-categorical and has no finite models. Proof by back and forth lemma. It is not $\aleph_1$-categorical, take $\mathbb{R} \sqcup \mathbb{Q} \ncong \mathbb{R}$.
     \end{enumerate}
 \end{example}
 
 \begin{definition}[Atomic Model]
     $\underline{A}$ is an \emph{atomic} model of a \emph{complete} theory $T$ if for any $\vec{a} \in A^n$ there is $\phi(\vec{x})$ such that $\underline{A} \models \phi(\vec{a})$ and for any $\psi(\vec{x})$:
-    \[
-        T \vDash \forall x (\phi \rightarrow \psi) \text{ or } T \vDash \forall x (\phi \rightarrow \neg \psi)
-    \]
+$        T \vDash \forall x (\phi \rightarrow \psi) \text{ or } T \vDash \forall x (\phi \rightarrow \neg \psi)$
 \end{definition}
 
 \begin{definition}
@@ -165,7 +196,7 @@
 \end{proposition}
 
 \begin{definition}[Type]
-    The \emph{$n$-type} of an $n$-tuple $\vec{a} \in A^n$ is the set of formulas satisfied by $\vec{a}$, denoted by $\mathrm{tp}_A(\vec{a})$. In particular, it is a partial type for the $\mathrm{Th}(\underline{A})$. It is complete as $\phi(\vec{x}) \in \mathrm{tp}_A(\vec{a})$ or $\neg \phi(\vec{x})\in \mathrm{tp}_A(\vec{a})$.    
+    The \emph{$n$-type} of an $n$-tuple $\vec{a} \in A^n$ is the set of formulas satisfied by $\vec{a}$, denoted by $\mathrm{tp}_A(\vec{a})$. $\mathrm{tp}_A(\vec{a})$ is a partial type for the $\mathrm{Th}(\underline{A})$. It is complete as $\phi(\vec{x}) \in \mathrm{tp}_A(\vec{a})$ or $\neg \phi(\vec{x})\in \mathrm{tp}_A(\vec{a})$.    
 \end{definition}
 
 \begin{proposition}
@@ -197,9 +228,16 @@
     If $\mathcal{M}$ is saturated, for all $B \subseteq \mathcal{M}$ and $\abs{B} < \abs{\mathcal{M}}$, $\mathcal{M}_B$ realises all 1-types of $\mathrm{Th}(\mathcal{M}_B)$.
 \end{definition}
 
+\begin{proposition}
+    If $\mathcal{M}$ is saturated and countable, it is universal and unique up to isomorphism.
+\end{proposition}
+
 \begin{definition}
     A group $G$ applied to a $G$-set is oligomorphic if there are finitely many orbits of $G$.
 \end{definition}
+\begin{proposition}
+    $T$ is $\aleph_0$-categorical if and only if for a countable $\mathcal{M}$, $\mathrm{Aut}(\mathcal{M})$ is oligomorphic.
+\end{proposition}
 
 \end{document}
 
