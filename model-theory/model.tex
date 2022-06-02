@@ -2,7 +2,7 @@
 %!TEX copy_output_on_build(true)
 
 \documentclass[a4paper,10pt]{article}
-\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm, showframe]{geometry}
 \usepackage{xcolor,fancyhdr}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
@@ -46,6 +46,10 @@
 \begin{theorem}[Upwards Lowenheim-Skolem] For an infinite $L$-structure $\underline{A}$ and $\kappa \geq \abs{A} + \abs{L}$ there is an $L$-structure $\underline{B}$ such that $\underline{A} \preceq \underline{B}$.
 \end{theorem}
 
+\begin{proof}
+    For $\abs{M} = \kappa$, expand $L$ with constants, $L_{A,M}$. $\Sigma = \mathrm{CDiag}(\underline{A}) \cup \{c_i \neq c_j \in M\}$ is satisfiable. 
+\end{proof}
+
 \begin{theorem}[Downwards Lowenheim-Skolem]
     For $\underline{B}$ an $L$-structure, $S \subseteq B$, there exists $\underline{A}$ such that $S \subseteq A$, $\abs{A} \leq \max{(\abs{S}, \abs{L})}$ and $\underline{A} \preceq \underline{B}$.
 
@@ -56,7 +60,7 @@
 \end{definition}
 
 \begin{example}
-    For $T = \text{Th}(\left\langle \mathbb{Z}, +, -, 0, 1\right\rangle )$, $P(x) = \{\exists y(y + y \ldots +y = x)\} \cup \{x \neq 0\}$, is a partial type. This can be proven by compactness.
+    For $T = \text{Th}(\left\langle \mathbb{Z}, +, -, 0, 1\right\rangle )$, $P(x) = \{\exists y(y + y \ldots +y = x)\} \cup \{x \neq 0\}$, is a partial type. This can be proven by compactness, first add constants.
 \end{example}
 
 \begin{definition}
@@ -72,8 +76,7 @@
 \end{proof}
 
 \begin{theorem}
-    If $A \leqslant B$ then for every \emph{quantifier free} $\varphi(x_1, \ldots x_n)$, 
-    \[\varphi ^ {\underline{B}} \cap A^k = \varphi ^ {\underline{A}}.\]
+    If $A \leqslant B$ then for every \emph{quantifier free} $\varphi(x_1, \ldots x_n)$, $\varphi ^ {\underline{B}} \cap A^k = \varphi ^ {\underline{A}}$.
     If $A \preceq B$ then this is true for all formulas $\varphi$.
 \end{theorem}
 
@@ -122,10 +125,9 @@
 \end{theorem}
 
 \begin{definition}
-    Theory $T$ admits quantifier elimination if for any formula $\theta(\vec{x})$, there exists a quantifier free formula $\tilde{\theta}(\vec{x})$ such that:
-    \[
+    Theory $T$ admits quantifier elimination if for any formula $\theta(\vec{x})$, there exists a quantifier free formula $\tilde{\theta}(\vec{x})$ such that:$
         T \models \forall \vec{x} (\theta \leftrightarrow \tilde{\theta})
-    \]
+    $
 \end{definition}
 
 \begin{theorem}
@@ -133,12 +135,7 @@
 \end{theorem}
 
 \begin{example}
-    \begin{itemize}
-        \item Th$(\left\langle \mathbb{Q}, < \right\rangle )$ admits QE and so is complete.
-        \item ACF admits QE. But, the only thing ACF does not decide is the field characteristic. Hence, ACF$_p$ for $p$ prime or zero is complete.
-        \item Th$(\left\langle \mathbb{R}, +, -, \times, 0, 1\right\rangle )$ does not admit Q.E. Atomic sentences with one variable define only, finite and cofinite sets. But $\varphi(x) = \exists y (y^2 = x)$ defines the positive numbers.
-        \item Th$(\left\langle \mathbb{R}, +, -, \times, 0, 1, < \right\rangle )$ admits Q.E. by Tarski. It is complete because the order is complete and so determines equality.
-    \end{itemize}
+     Th$(\left\langle \mathbb{Q}, < \right\rangle )$ admits QE and so is complete. ACF admits QE. But, the only thing ACF does not decide is the field characteristic. Hence, ACF$_p$ for $p$ prime or zero is complete. Th$(\left\langle \mathbb{R}, +, -, \times, 0, 1\right\rangle )$ does not admit Q.E. Atomic sentences with one variable define only, finite and cofinite sets. But $\varphi(x) = \exists y (y^2 = x)$ defines the positive numbers. Th$(\left\langle \mathbb{R}, +, -, \times, 0, 1, < \right\rangle )$ admits Q.E. by Tarski. It is complete because the order is complete and so determines equality.
 \end{example}
 
 \begin{remark}
@@ -150,15 +147,18 @@
 \end{theorem}
 
 \begin{theorem}[Equivalence]
-    \begin{enumerate}
-        \item $T$ has Q.E.
-        \item Any partial isomorphism between models of $T$ is elementary. It is enough to consider isomorphisms on finitely generated subsets.
-        \item For any $\mathcal{M} \models T$ and any $\vec{a} \in \mathcal{M}^n$, $T \cup \mathrm{diag}(\vec{a})$ is complete.
-    \end{enumerate}
+    $T$ has Q.E.\\ Any partial isomorphism between models of $T$ is elementary. It is enough to consider isomorphisms on finitely generated subsets.
+    \\ For any $\mathcal{M} \models T$ and any $\vec{a} \in \mathcal{M}^n$, $T \cup \mathrm{diag}(\vec{a})$ is complete.
 \end{theorem}
 
+\begin{proof}
+    $(1) \implies (2)$, $\mathcal{M} \models \phi(\vec{a}) \implies \mathcal{M} \models \tilde{\phi}(\vec{a}) \implies \mathcal{N} \models \tilde{\phi}(f(\vec{a}))$. \\
+    $(2) \implies (1)$, pick $\mathcal{M} \models T \cup \mathrm{Diag}(A) \cup \{\phi(\vec{c}\}$ and $\mathcal{N} \models T \cup \mathrm{Diag}(A) \cup \{ \neg\phi(\vec{c}\}$ then $\tau(\vec{c})^\mathcal{M} \mapsto \tau(\vec{c}^\mathcal{N})$ is a non-elementary partial isomorphism. \\ 
+    $(3) \implies (1)$ For $\phi$ take $\underline{qfco}(\phi)$ all q.f. s.t. $\phi \iff \theta$. Want to show: $T \cup \underline{qfco}(\phi) \models \phi$. Now, if $T \cup \mathrm{Diag}(A) \models \neg \phi(a)$, then $T \cup \{\psi\} \models \neg \phi$ for $\psi$ quantifier free.
+\end{proof}
+
 \begin{definition}
-    A theory $T$ for a cardinal $\kappa$ is $\kappa$-categorical if there exist models $\underline{A}, \underline{B} \models T$ with $\abs{A} = \abs{B} = \kappa$ and this implies $A \cong B$.
+    A theory $T$ for a cardinal $\kappa$ is $\kappa$-\emph{categorical} if there exist models $\underline{A}, \underline{B} \models T$ with $\abs{A} = \abs{B} = \kappa$ and this implies $A \cong B$.
 \end{definition}
 
 \begin{proposition}[Los-Vaught Test]
@@ -171,11 +171,9 @@
 
 
 \begin{example}
-    \begin{enumerate}
-        \item Theory of equality $T_=$ is categorical for every cardinal. So $T_{\infty}$ is complete.
-        \item $\mathrm{Vect}_K$ is categorical for every $\kappa > \abs{K}$, so $\mathrm{Vect}_K \cup T_\infty$ is complete. But, $\mathrm{Vect}_\mathbb{Q}$ is not $\aleph_0$-categorical.
-        \item $\mathrm{DLO}$ is $\aleph_0$-categorical and has no finite models. Proof by back and forth lemma. It is not $\aleph_1$-categorical, take $\mathbb{R} \sqcup \mathbb{Q} \ncong \mathbb{R}$.
-    \end{enumerate}
+        Theory of equality $T_=$ is categorical for every cardinal. So $T_{\infty}$ is complete.
+         $\mathrm{Vect}_K$ is categorical for every $\kappa > \abs{K}$, so $\mathrm{Vect}_K \cup T_\infty$ is complete. But, $\mathrm{Vect}_\mathbb{Q}$ is not $\aleph_0$-categorical.
+         $\mathrm{DLO}$ is $\aleph_0$-categorical and has no finite models. Proof by back and forth lemma. It is not $\aleph_1$-categorical, take $\mathbb{R} \sqcup \mathbb{Q} \ncong \mathbb{R}$.
 \end{example}
 
 \begin{definition}[Atomic Model]
@@ -192,7 +190,7 @@ $        T \vDash \forall x (\phi \rightarrow \psi) \text{ or } T \vDash \forall
 \end{definition}
 
 \begin{proposition} 
-    \emph{Countable} atomic models are isomorphic. In fact, every finite partial isomorphism can be extended to an isomorphism. They are also prime and homogeneous.
+    \emph{Countable} atomic models are isomorphic. In fact, every finite partial isomorphism can be extended to an isomorphism. They are also prime and homogeneous. For the one step lemma, $(c_1, \ldots, c_n, a)$, $\phi(\vec{c}, a)$ the type,  $\underline{A} \models \exists y \phi(\vec{c}, y) \implies \underline{B} \models \exists y \phi(f(\vec{c}))$. Then check elementary.
 \end{proposition}
 
 \begin{definition}[Type]
@@ -216,11 +214,11 @@ $        T \vDash \forall x (\phi \rightarrow \psi) \text{ or } T \vDash \forall
 \end{proposition}
 
 \begin{definition}
-    A countable model $\mathcal{M} \models T$ is \emph{universal}, if every countable model embeds elementarily into $\mathcal{M}$.
+    Countable $\mathcal{M} \models T$ is \emph{universal}, if every countable model embeds elementarily into $\mathcal{M}$.
 \end{definition}
 
 \begin{theorem}[Ryll-Nardzewski]
-    Let $T$ complete and $L$-countable. Then, $T$ is $\aleph_0$-categorical $\iff$ every countable model is prime $\iff$ every countable model is atomic $\iff$ every type is principal $\iff$ there are only finitely many $n$-types $\iff$ $n$-formulas $\phi(\vec{x})$ up to $T$ equivalence is finite $\iff$ \\every countable model is universal $\iff$ a countable model is prime and universal $\iff$ \\ every countable model is universal and homogeneous.
+    Let $T$ complete and $L$-countable. Then, $T$ is $\aleph_0$-categorical $\iff$ every countable model is prime $\iff$ every countable model is atomic $\iff$ every type is principal $\iff$ there are only finitely many $n$-types $\iff$ $n$-formulas $\phi(\vec{x})$ up to $T$ equivalence is finite $\iff$ \\every countable model is universal $\iff$ a countable model is prime and universal $\iff$ \\ every countable model is universal and homogeneous. Proof: $(4) \implies (5)$: pick $\phi_p$, $T \models \forall \lor \phi_p$. By compactness and negations, finite. $(5) \implies (6)$, $\phi \mapsto^\Phi \{p \mid \phi \in p\}$, show $\Phi(\phi_1) = \Phi(\phi_2)$ iff $\phi_1 \leftrightarrow \phi_2$. $(6) \implies (4)$ easy. Then, $(1) \implies (9)$, $(7) \implies (9)$, $(7) \implies (4)$ and $(8) \implies (2)$. $\mathcal{M}$ prime \& universal: $\mathcal{N} \xrightarrow{g} \mathcal{M} \xrightarrow{h} \mathcal{N}'$ elementarily, so $\mathcal{N}$ is prime.
 \end{theorem}
 
 \begin{definition}
