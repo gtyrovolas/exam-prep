@@ -23,6 +23,9 @@
 \mathindent = -1pt
 \setpagewiselinenumbers
 
+\setlength{\parskip}{0cm}
+\setlength{\parindent}{1em}
+
 \newbox\gnBoxA
 \newdimen\gnCornerHgt
 \setbox\gnBoxA=\hbox{$\ulcorner$}
@@ -79,7 +82,7 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
 
 \begin{definition}
     A subset $A \subseteq \mathbb{N}^k$ is \emph{definable} if there is a formula $\varphi(v_1, \ldots, v_k)$ such that 
-    \[(n_1, \ldots, n_k) \in A \iff \varphi(\overline{n_1}, \ldots, \overline{n_k})\]
+    $(n_1, \ldots, n_k) \in A \iff \varphi(\overline{n_1}, \ldots, \overline{n_k})$
 \end{definition}
 
 \begin{definition}
@@ -94,24 +97,19 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
 
 \begin{definition}
     \begin{enumerate}
-        \itemsep0em 
+        \itemsep-0.3em 
         \item $^{+} \colon \mathbb{N} \longrightarrow \mathbb{N} \setminus \{0\}$ is injective.
         \item Adding and multiplying by 0 on the right: $\forall v \left(v + \zero =\zero \right)$ and $\forall v \left(v \times \zero = \zero\right)$
         \item Addition, multiplication: $ \forall v_1 \forall v_2 (v_1 + v_2^+ = (v_1 + v_2)^+)$ and $\forall v_1 \forall v_2 (v_1 \times v_2^+ = v_1 \times v_2 + v_2)$.
         \item Relation $\leqslant$ is a total order, $\zero$ is the least element, $n^+$ is the successor of $n$.
         \item For any formula $\varphi(x)$ in one variable:
-        \[
+        $
             (\varphi(\zero) \land \forall v_0(\varphi(v_0) \rightarrow \phi(v_0^+))) \rightarrow \forall v_0 (\phi(v_0))
-        \]
+        $
     \end{enumerate}
 \end{definition}
-
-\begin{definition}
-    For $\phi = \sigma_0 \ldots \sigma_n$ a formula of $L$, $  \gnum \phi = \displayed {\sum_{i=0}^n} \gnum {\sigma_i} 13^i$
-\end{definition}
-
 \begin{enumerate}
-    \itemsep0em 
+    \itemsep-0.3em 
     \item Syntax: $\lfloor\root{13}{n} \rfloor$, \begin{tight} ${k {+}{+} l}$ \end{tight}, $k$ is prefix/suffix/substring of $n$ and \emph{formula sequence} last of which is $\sigma$.
     \item Define \texttt{isNumeral} and \texttt{isVariable} by $\exists$. Define \texttt{isTerm} by valid sequence of term construction.
     \item Identify formulas: \texttt{isAtomic}, and \texttt{isAxiomFirstOrder}.
@@ -132,9 +130,8 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
 
 \begin{lemma}[Diagonal Lemma]
     For any formula $F(v_1)$ there is a formula $C$ such that:
-    \[ \centering
-        \PA \proves F(\overline{\gnum C}) \leftrightarrow C
-    \]
+    $
+        \PA \proves F(\overline{\gnum C}) \leftrightarrow C$
 \end{lemma}
 Let $E_n$ the expression with Gödel number $n$. \\
     Let $d(n)$ be $E_n[\overline{n}]$ and $D(m, n)$ be the formula $n = \gnum{d(m)}$. \\
@@ -157,37 +154,30 @@ Let $E_n$ the expression with Gödel number $n$. \\
 \end{definition}
 
 \begin{proposition}
-    $A$ is a decidable set $\iff$ $A$ is $\Delta_1$-definable. \\
-    $A$ is a recursively enumerable set $\iff$ $A$ is $\Sigma_1$-definable.
+    $A$ is decidable$\iff$ $A$ is $\Delta_1$-definable, 
+    $A$ is r.e. $\iff$ $A$ is $\Sigma_1$-definable.
 \end{proposition}
 
-For $S$ a \emph{provably definable} set of assumptions.
-\begin{enumerate}
-    \item If $S \proves \phi$ then $\PA \proves \Pr{\phi}$.
-    \item $\PA \proves \Pr{\phi \rightarrow \psi} \rightarrow (\Pr{\phi} \rightarrow \Pr{\psi})$.
-    \item If $\PA \subseteq S$ then $\PA \proves \Pr{\phi} \rightarrow \Pr{\Pr{\phi}}$
-\end{enumerate}
+\begin{proposition}[Provability rules]
+For $S$ a \emph{provably definable} set of assumptions:\\
+    1\textsuperscript{st} rule: If $S \proves \phi$ then $\PA \proves \Pr{\phi}$.\\
+    2\textsuperscript{nd} rule: $\PA \proves \Pr{\phi \rightarrow \psi} \rightarrow (\Pr{\phi} \rightarrow \Pr{\psi})$.\\
+    3\textsuperscript{rd} rule: If $\PA \subseteq S$ then $\PA \proves \Pr{\phi} \rightarrow \Pr{\Pr{\phi}}$.\\
+    Additionally, $S \proves \phi$ if and only if $\nat \models \Pr{\phi}$.
+\end{proposition}
 
-Additionally, $S \proves \phi$ if and only if $\nat \models \Pr{\phi}$.
-
-Let $\PA \subseteq S$ a provably definable set of sentences.
-Then, there is a formula $G$, $\nat \models G$ but $S \nvdash G$.
 \begin{definition}
     A set $S$ of assumptions is \emph{$n$-inconsistent} if for some $\Sigma_n$ formula $\exists x \psi(x)$, $S \proves \exists x \psi(x)$ but for all $m \in \nat$, $S \proves \neg \psi(\overline{m})$. It is $n$-\emph{consistent} if it is not $n$-inconsistent.
-\end{definition}
-
-\begin{definition}
     Formulas $S$ are \emph{$\Sigma_n$-complete} if every $\Sigma_n$ sentence true in $\nat$ is provable from $S$.
+    Formulas $S$ are \emph{$\Sigma_n$-sound} if every $\Sigma_n$ sentence provable from $S$ is true in $\nat$.
 \end{definition}
 
 \begin{definition}[Weaker arithmetics]
     $\mathcal{Q}$ is $\PA$ without the induction schema, so it is finitely axiomatisable.
     $\mathcal{R}$ is the collection of all valid sentences of the form $\overline{m} + \overline{n} = \overline{k}$, $\overline{m} \times \overline{n} = \overline{k}$, $\overline{m} \neq \overline{n}$, $\forall v_1(v_1 \leq \overline{n} \rightarrow (v_1 = \overline{0} \lor \ldots \lor \overline{n}))$ and $\forall v_1 (v_1 \leq \overline{n} \lor \overline{n} \leq v_1)$.
+    Clearly, for every $r \in \mathcal{R}$, $\mathcal{Q} \proves r$ and $q \in \mathcal{Q}$, $\PA \proves q$.
 \end{definition}
 
-\begin{proposition}
-    For every $r \in \mathcal{R}$, $\mathcal{Q} \proves r$.
-\end{proposition}
 
 \begin{proposition}
     $\mathcal{R}$ is $\Sigma_0$-complete. Hence, so is $\mathcal{Q}$ and $\PA$.
@@ -203,7 +193,9 @@ Then, there is a formula $G$, $\nat \models G$ but $S \nvdash G$.
 
 \begin{proof}
     Let $G$ such that $\PA \proves G \leftrightarrow \neg \Pr[\PA]{G}$. If $\PA \proves G$ by 1\textsuperscript{st} provability, $\PA \proves \Pr[\PA]{G}$ and $\PA \proves \neg \Pr[\PA]{G}$, contradicting the consistency of $\PA$.\\
-    If $\PA \proves \neg G$, then $\PA \proves \Pr[\PA]{G}$, but $\Pr[\PA]{\phi} \equiv \exists x\mathrm{proof}_{\PA}(\overline{\gnum{\phi}}, x)$ is $\Sigma_1$. By $1$-consistency, for some $n \in \nat$, $\PA \nvdash \neg\mathrm{proof}_{\PA}(\overline{\gnum{G}}, n)$, so by $\Sigma_1$-completeness, 
+    If $\PA \proves \neg G$, then $\PA \proves \Pr[\PA]{G}$, but $\Pr[\PA]{G} \equiv \exists x\mathrm{proof}_{\PA}(\overline{\gnum{G}}, x) \equiv \exists x \exists y \phi(\overline{\gnum{G}}, x, y) $ for $\phi \in \Sigma_0$.
+    Also, $\exists n (\exists x \leq n \land \exists y \leq n) \phi(\overline{\gnum{G}}, x, y) \vDash \Dashv \Pr[\PA]{G}$.
+    By $1$-consistency, for some $m \in \nat$, $\PA \nvdash \neg(\exists x \leq \overline{m} \land \exists y \leq \overline{m}) \phi(\overline{\gnum{G}}, x, y)$ and by $\Sigma_0$ completeness, $ \PA \proves (\exists x \leq \overline{m} \land \exists y \leq \overline{m}) \phi(\overline{\gnum{G}}, x, y)$. By $\Sigma_0$-soundness $\nat \models \exists y \exists x \phi(\overline{\gnum{G}}, x, y)$ so $\nat \models \Pr[\PA]{G}$, so $\PA \proves G$.
 \end{proof}
 
 \begin{theorem}[Rosser's]
@@ -211,20 +203,40 @@ Then, there is a formula $G$, $\nat \models G$ but $S \nvdash G$.
     Then there is a sentence $G$ such that $S \nvdash G$ and $S \nvdash \neg G$.
 \end{theorem}
 
+\begin{proof}
+    Let $H(x) = \exists y (\mathrm{proof}_S(\overline{\gnum{\neg} x}, y) \land \forall z (z \leq y \rightarrow \neg \mathrm{proof}_S(\overline{x}, z))) $. Pick $G$, $\PA \proves G \leftrightarrow H(\overline{\gnum{G}})$. 
+    If $S \proves G$ then for some $m$, $\PA \proves \mathrm{proof}_S(\overline{\gnum{G}}, \overline{m})$. But $S \proves G$ implies $S \proves H(\overline{\gnum{G}})$, so there must be $r < m$ that encodes a refutation of $G$, so $r$ is a \emph{standard} natural number. So, we can prove $S \proves \neg G$.
+    \\If $S \proves \neg G$, let $m$ the Godel number of the proof. But $S \proves \neg H(\overline{\gnum{G}})$ so there is $r < m$ such that $r$ encodes a proof of $G$, so $r$ is a \emph{standard} natural number so $S \proves G$.
+\end{proof}
+
 \begin{theorem}[2\textsuperscript{nd} Incompleteness]
     Let $ \PA \subseteq S$ a provably definable set of sentences.\\ If $ S \proves G \leftrightarrow \neg \Pr{G}$, then for any $\phi$, $S \proves \neg \Pr{\phi} \rightarrow \neg \Pr{G}$.
 \end{theorem}
 
-So, $S \proves \neg \Pr{\phi}$ implies $ S \proves G$. But, if $S$ is consistent $S \nvdash G$. \\
-In particular, $S \nvdash \neg \Pr{\overline{0} = \overline{1}}$ which is $\mathrm{Con}_S$.
+\begin{proof}
+    $S \proves G \rightarrow (\neg G \rightarrow X)$. Now, $S \proves \Pr{G} \rightarrow \neg G$, so $S \proves G \rightarrow (\Pr{G} \rightarrow X)$ applying the 1st, 2nd provability and MP: $ S \proves \Pr{G} \rightarrow (\Pr{\Pr{G}} \rightarrow \Pr{X})$. By 3rd provability and HS, $S \proves \Pr{G} \rightarrow \Pr{X}$, now apply contrapositive.
+\end{proof}
+
 
 \begin{theorem}[Lob's Theorem]
     Let $\PA \subseteq S$ provably definable. Then, from $S \proves \Pr{\phi} \rightarrow \phi$ we can deduce $S \proves \phi$.
 \end{theorem}
 
+\begin{proof}
+    Let $S \proves \Pr{\phi} \rightarrow \phi$ and $L$ such that $S \proves L \leftrightarrow (\Pr{L} \rightarrow \phi)$. Then $S \proves \Pr{L} \rightarrow (\Pr{\Pr{L}} \rightarrow \Pr{\phi})$. By 3rd provability and HS, $S \proves \Pr{L} \rightarrow \Pr{\phi}$, so $S \proves \Pr{L} \rightarrow \phi$ which is defined as $L$, so $S \proves L$, $S \proves \Pr{L}$ so $S \proves \phi$.
+\end{proof}
+
+\begin{proposition}
+    If $\phi \in \Sigma_1$, then $\PA \proves \phi \rightarrow \Pr[\PA]{\phi}$. Additionally, $\phi(x) \in \Sigma_1$, $\PA \proves \forall x(\phi(x) \rightarrow \Pr[\PA]{\phi(x)})$.
+\end{proposition}
+
+\begin{definition}[$\omega$-rule]
+    If for all $n \in \nat$, $S \proves \phi({\overline{n}})$ then $S \proves \forall x \phi(x)$. $\mathcal{R}^\omega$ is complete.
+\end{definition}
+
 \begin{definition}[Godel-Lob Logic]
     Symbols: countably many propositional variables, $\bot$, $\rightarrow$, $\square$. \\Formulae: propositional variables, $\bot$. For $\phi, \psi$ formulae, $\phi \rightarrow \psi$ and $\square \phi$ are formulae.
-    Logical axioms: Propositional tautologies, where $\bot$ is contradiction, $\square(\phi \rightarrow \psi) \rightarrow \square \phi \rightarrow \square \psi$, and $\square(\square \phi \rightarrow \phi) \rightarrow \phi$. \\
+    Logical axioms: Propositional tautologies, where $\bot$ is contradiction, $\square(\phi \rightarrow \psi) \rightarrow \square \phi \rightarrow \square \psi$, and $\square(\square \phi \rightarrow \phi) \rightarrow \square \phi$. \\
     Rules of inference: Modus ponens and necessitation $\proves \phi$ implies $\proves \square \phi$.
 \end{definition}
 
