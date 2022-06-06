@@ -2,7 +2,7 @@
 %!TEX copy_output_on_build(true)
 
 \documentclass[a4paper,10pt]{article}
-\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage[top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm, showframe]{geometry}
 \usepackage{xcolor,fancyhdr}
 \usepackage[utf8]{inputenc}
 \usepackage{amsfonts}
@@ -94,6 +94,7 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
 
 \begin{definition}
     \begin{enumerate}
+        \itemsep0em 
         \item $^{+} \colon \mathbb{N} \longrightarrow \mathbb{N} \setminus \{0\}$ is injective.
         \item Adding and multiplying by 0 on the right: $\forall v \left(v + \zero =\zero \right)$ and $\forall v \left(v \times \zero = \zero\right)$
         \item Addition, multiplication: $ \forall v_1 \forall v_2 (v_1 + v_2^+ = (v_1 + v_2)^+)$ and $\forall v_1 \forall v_2 (v_1 \times v_2^+ = v_1 \times v_2 + v_2)$.
@@ -109,9 +110,8 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
     For $\phi = \sigma_0 \ldots \sigma_n$ a formula of $L$, $  \gnum \phi = \displayed {\sum_{i=0}^n} \gnum {\sigma_i} 13^i$
 \end{definition}
 
-\subsection*{Building $\Pr{\phi}$}
-
 \begin{enumerate}
+    \itemsep0em 
     \item Syntax: $\lfloor\root{13}{n} \rfloor$, \begin{tight} ${k {+}{+} l}$ \end{tight}, $k$ is prefix/suffix/substring of $n$ and \emph{formula sequence} last of which is $\sigma$.
     \item Define \texttt{isNumeral} and \texttt{isVariable} by $\exists$. Define \texttt{isTerm} by valid sequence of term construction.
     \item Identify formulas: \texttt{isAtomic}, and \texttt{isAxiomFirstOrder}.
@@ -141,25 +141,26 @@ Let $E_n$ the expression with Gödel number $n$. \\
     Consider, $F(\overline{\gnum{y}})$, then $F(\overline{\gnum{d(y)}}) \vdash \dashv \psi(y) = \forall z(D(y,z) \rightarrow F(z))$. Let $k = \gnum{\psi}$, $C = \psi[\overline{k}]$.
     Then, $C \vdash\dashv \psi(\overline{k}) \vdash \dashv F(\overline{\gnum{d(k)}})$. But $k = \gnum{\psi}$, so $C = E_k [\overline{k}]$ which is defined to be $d(k)$. So, $C \vdash \dashv F(\overline{\gnum{C}})$.
     
-    So, \emph{truth is undefinable}, let $\nat \models \mathrm{True}(\overline{\gnum{\phi}})$ if and only if $\nat \models \phi$. 
+    \begin{theorem}[Tarski]
+        Truth is \emph{undefinable}, let $\nat \models \mathrm{True}(\overline{\gnum{\phi}})$ if and only if $\nat \models \phi$. 
     Then, $F(v_1) = \neg \mathrm{True}(v_1)$ so there is $C$ such 
     that $C \vDash \Dashv \neg \mathrm{True}(\overline{\gnum{C}})\vDash \Dashv \neg C$.
-
-\subsection*{Recursive Functions}
+    \end{theorem} 
 
 \begin{definition}
     Primitive recursive functions contain $\underline{\text{zero}}$ 
-    and $\underline{\text{succ}}$ and are closed under, projection, composition and primitive recursion.
-    Recursive functions are closed under minimilisation as well.
+    and $\underline{\text{succ}}$.
+    \\\textbf{Composition:} For $g \colon \nat^a \rightarrow \nat$ and for $1 \leq i \leq a$ $f_i \colon \nat^k \rightarrow \nat$, $h(\vec{n}) = g(f_1(\vec{n}), \ldots, f_a(\vec{n}))$ is PR.\\
+    \textbf{Recursion:} For $g \colon \nat^k \rightarrow \nat, h \colon \nat^{k+2} \rightarrow \nat$, $f \colon \nat^{k+1} \rightarrow \nat$ is primitive recursive
+    \\ $f(\vec{n}, 0) = g(\vec{n})$ and $f(\vec{n}, m + 1) = h(\vec{n}, m, f(\vec{n}, m))$.\\
+    \textbf{Minimilisation:} For $g \colon \nat^{k+1} \rightarrow \nat$ let $f \colon \nat^k \rightarrow \nat$, $f(\vec{n})$ be the minimum $m$ such that $g(\vec{n}, m) = 0$ and $\bot$ otherwise.
 \end{definition}
 
 \begin{proposition}
-    Equivalences: $A$ is a decidable set $\iff$ $A$ is $\Delta_1$-definable.\\
+    $A$ is a decidable set $\iff$ $A$ is $\Delta_1$-definable. \\
     $A$ is a recursively enumerable set $\iff$ $A$ is $\Sigma_1$-definable.
 \end{proposition}
 
-
-\subsection*{Provability Rules}
 For $S$ a \emph{provably definable} set of assumptions.
 \begin{enumerate}
     \item If $S \proves \phi$ then $\PA \proves \Pr{\phi}$.
@@ -199,6 +200,11 @@ Then, there is a formula $G$, $\nat \models G$ but $S \nvdash G$.
 \begin{theorem}[1\textsuperscript{st} Incompleteness]
     There exists a $\Pi_1$ sentence $G$ such that if $\PA$ is consistent then $\PA \nvdash G$, if $\PA$ is 1-consistent then $\PA \nvdash \neg G$. 
 \end{theorem}
+
+\begin{proof}
+    Let $G$ such that $\PA \proves G \leftrightarrow \neg \Pr[\PA]{G}$. If $\PA \proves G$ by 1\textsuperscript{st} provability, $\PA \proves \Pr[\PA]{G}$ and $\PA \proves \neg \Pr[\PA]{G}$, contradicting the consistency of $\PA$.\\
+    If $\PA \proves \neg G$, then $\PA \proves \Pr[\PA]{G}$, but $\Pr[\PA]{\phi} \equiv \exists x\mathrm{proof}_{\PA}(\overline{\gnum{\phi}}, x)$ is $\Sigma_1$. By $1$-consistency, for some $n \in \nat$, $\PA \nvdash \neg\mathrm{proof}_{\PA}(\overline{\gnum{G}}, n)$, so by $\Sigma_1$-completeness, 
+\end{proof}
 
 \begin{theorem}[Rosser's]
     Let $\PA \subseteq S$ any provably definable consistent set of sentences.
