@@ -216,5 +216,35 @@ In particular, $S \nvdash \neg \Pr{\overline{0} = \overline{1}}$ which is $\math
     Let $\PA \subseteq S$ provably definable. Then, from $S \proves \Pr{\phi} \rightarrow \phi$ we can deduce $S \proves \phi$.
 \end{theorem}
 
+\begin{definition}[Godel-Lob Logic]
+    Symbols: countably many propositional variables, $\bot$, $\rightarrow$, $\square$. \\Formulae: propositional variables, $\bot$. For $\phi, \psi$ formulae, $\phi \rightarrow \psi$ and $\square \phi$ are formulae.
+    Logical axioms: Propositional tautologies, where $\bot$ is contradiction, $\square(\phi \rightarrow \psi) \rightarrow \square \phi \rightarrow \square \psi$, and $\square(\square \phi \rightarrow \phi) \rightarrow \phi$. \\
+    Rules of inference: Modus ponens and necessitation $\proves \phi$ implies $\proves \square \phi$.
+\end{definition}
+
+\begin{proposition}[Substitution]
+    Let $\phi, \psi, \chi, \theta$ formulae. Let $\theta'$ formula $\theta$ where some instances of $\chi$ are replaced with $\psi$. Then: $\proves (\phi \rightarrow (\psi \leftrightarrow \chi))\rightarrow (\phi \rightarrow (\theta \leftrightarrow \theta'))$. 
+\end{proposition}
+
+\begin{proposition}[Modalised substitution]
+    Let $X = X(p)$ with instances of $p$ bound by $\square$. \\
+    Then $\proves \square(p \leftrightarrow q) \rightarrow (X(p) \leftrightarrow X(q))$.
+\end{proposition}
+
+\begin{theorem}[Fixed-point theorem]
+    Let $A(p)$ with $p$ bound by $\square$. Then there is $X$ with letters only from $A(\cdot)$ such that $\proves X \leftrightarrow A(X)$. $X$ is ``unique'': $\proves (\square(p \leftrightarrow A(p)) \land \square(q \leftrightarrow A(q))) \rightarrow \square (p \leftrightarrow q)$.
+\end{theorem}
+
+\begin{proposition}[GL Incompleteness]
+    1\textsuperscript{st} Incompleteness: There is a formula $G$ such that: $\proves G \leftrightarrow \neg \square G$.\\
+    2\textsuperscript{nd} Incompleteness: For any $A, B$ we have $\proves \square \neg \square A \rightarrow \square B$.
+\end{proposition}
+
+\begin{proof}
+    Consider $A(p) = \neg \square p$, then $G$ is a fixed point such that $\proves G \leftrightarrow \neg \square G$.\\
+    For the 2\textsuperscript{nd} we have $\proves \neg \square A \rightarrow (\square A \rightarrow A)$ by propositional calculus. So, $\proves \square (\neg \square A \rightarrow (\square A \rightarrow A))$ by necessitation. By second provability rule and axiom 2:  $\proves \square \neg \square A \rightarrow \square A$.
+    By the correspondence $\square, \mathrm{Pr}$: $\proves \square A \rightarrow \square \square A$. So, $\proves \square \neg \square A \rightarrow \square \square A$. Now for any $B$ we have $\proves \square \neg \square A \rightarrow \square \square A \rightarrow \square B$. So by hypothetical syllogism, $\proves \square \neg \square A \rightarrow \square B$.
+\end{proof}
+
 \end{document}
 
