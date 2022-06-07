@@ -117,9 +117,6 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
     \item Define $\PA$ in $\Delta_1$, we need the exists for the induction scheme. 
 \end{enumerate}
 
-\begin{definition}[Quasi-substitution]
-    For $\phi(v_i)$ and term $t$ let $\phi[t] = \forall v_i (v_i = t \rightarrow \phi)$. We have $\PA \proves \phi(t) \leftrightarrow \phi[t]$. The benefit of this definition is that it is easy to tell the Gödel number of $\phi[t]$ from $\phi$.
-\end{definition}
 
 \begin{definition}
     $\Sigma_0 = \Pi_0 = \Delta_0$ formulas without unbounded quantifiers.
@@ -133,7 +130,7 @@ We work in the language ${L}_E = \{\overline{0}, \,{}^+, \,v,\, f,\, ',\, (,\, )
     $
         \PA \proves F(\overline{\gnum C}) \leftrightarrow C$
 \end{lemma}
-Let $E_n$ the expression with Gödel number $n$. \\
+Let $E_n$ the expression with Gödel number $n$.
     Let $d(n)$ be $E_n[\overline{n}]$ and $D(m, n)$ be the formula $n = \gnum{d(m)}$. \\
     Consider, $F(\overline{\gnum{y}})$, then $F(\overline{\gnum{d(y)}}) \vdash \dashv \psi(y) = \forall z(D(y,z) \rightarrow F(z))$. Let $k = \gnum{\psi}$, $C = \psi[\overline{k}]$.
     Then, $C \vdash\dashv \psi(\overline{k}) \vdash \dashv F(\overline{\gnum{d(k)}})$. But $k = \gnum{\psi}$, so $C = E_k [\overline{k}]$ which is defined to be $d(k)$. So, $C \vdash \dashv F(\overline{\gnum{C}})$.
@@ -227,11 +224,12 @@ For $S$ a \emph{provably definable} set of assumptions:\\
 \end{proof}
 
 \begin{proposition}
-    If $\phi \in \Sigma_1$, then $\PA \proves \phi \rightarrow \Pr[\PA]{\phi}$. Additionally, $\phi(x) \in \Sigma_1$, $\PA \proves \forall x(\phi(x) \rightarrow \Pr[\PA]{\phi(x)})$.
+    If $\phi \in \Sigma_1$, then $\PA \proves \phi \rightarrow \Pr[\PA]{\phi}$ and  $\PA \proves \forall x(\phi(x) \rightarrow \Pr[\PA]{\phi(x)})$.
 \end{proposition}
 
-\begin{definition}[$\omega$-rule]
-    If for all $n \in \nat$, $S \proves \phi({\overline{n}})$ then $S \proves \forall x \phi(x)$. $\mathcal{R}^\omega$ is complete.
+\begin{definition}[Strengthenings]
+    $\omega-$rule: If for all $n \in \nat$, $S \proves \phi({\overline{n}})$ then $S \proves \forall x \phi(x)$. $\mathcal{R}^\omega$ is complete.\\
+    URP: for $F(v_1)$ a formula add axiom $\forall n \mathrm{Pr}_{\mathit{PA}}(\gnum{\forall v_1 (v_1= 0}\gnum{\overline{n}}\gnum{\rightarrow F(v_1)} ) \rightarrow \forall n F(n)$. $\mathrm{URP} \proves G$.
 \end{definition}
 
 \begin{definition}[Godel-Lob Logic]
@@ -241,16 +239,14 @@ For $S$ a \emph{provably definable} set of assumptions:\\
 \end{definition}
 
 \begin{proposition}[Substitution]
-    Let $\phi, \psi, \chi, \theta$ formulae. Let $\theta'$ formula $\theta$ where some instances of $\chi$ are replaced with $\psi$. Then: $\proves (\phi \rightarrow (\psi \leftrightarrow \chi))\rightarrow (\phi \rightarrow (\theta \leftrightarrow \theta'))$. 
-\end{proposition}
-
-\begin{proposition}[Modalised substitution]
-    Let $X = X(p)$ with instances of $p$ bound by $\square$. \\
+    Let $\phi, \psi, \chi, \theta$ formulae. Let $\theta'$ formula $\theta$ where some instances of $\chi$ are replaced with $\psi$. Then: $\proves (\phi \rightarrow (\psi \leftrightarrow \chi))\rightarrow (\phi \rightarrow (\theta \leftrightarrow \theta'))$.
+    Let $X = X(p)$ with instances of $p$ bound by $\square$.
     Then $\proves \square(p \leftrightarrow q) \rightarrow (X(p) \leftrightarrow X(q))$.
 \end{proposition}
 
 \begin{theorem}[Fixed-point theorem]
-    Let $A(p)$ with $p$ bound by $\square$. Then there is $X$ with letters only from $A(\cdot)$ such that $\proves X \leftrightarrow A(X)$. $X$ is ``unique'': $\proves (\square(p \leftrightarrow A(p)) \land \square(q \leftrightarrow A(q))) \rightarrow \square (p \leftrightarrow q)$.
+    Let $A(p)$ with $p$ bound by $\square$. Then there is $X$ with letters only from $A(\cdot)$ such that $\proves X \leftrightarrow A(X)$. $X$ is ``unique'': $\proves (\square(p \leftrightarrow A(p)) \land \square(q \leftrightarrow A(q))) \rightarrow \square (p \leftrightarrow q)$.\\
+    For $A(p) = \square B(p)$, $\proves \square B(\top) \leftrightarrow A(\square B(\top)) \equiv \square B(\square B(\top))$. \\For $A(p) = D(C_1, \ldots, C_n)$, find $F_i \leftrightarrow \square C_i(D(F_1, \ldots, F_n))$. Let $G_i(q) \leftrightarrow \square C_i(D(G_1(q), \ldots, G_n(q), q)$. \\Then, $G_{n+1} \leftrightarrow \square C_{n+1}(D(G_1(F_{n+1}), \ldots, G_n(F_{n+1}), F_{n+1}))$ and $F_i = G_i(F_{n+1})$.
 \end{theorem}
 
 \begin{proposition}[GL Incompleteness]
